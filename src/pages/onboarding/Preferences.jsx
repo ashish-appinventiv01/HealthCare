@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
 import Button from '../../components/Button.jsx'
+import PreferenceItem from '../../components/PreferenceItem.jsx'
 
 export default function Preferences() {
   const navigate = useNavigate()
@@ -16,19 +17,22 @@ export default function Preferences() {
       <h1 style={{ margin: 0 }}>Your Preference</h1>
       <p style={{ color: '#6b7280', marginTop: 8 }}>Please select all the preferences that apply</p>
 
-      <div style={{ marginTop: 24, display: 'grid', gap: 12 }}>
-        <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', border: '1px solid #e5e7eb', borderRadius: 8 }}>
-          <span>Period predictions</span>
-          <input type="checkbox" checked={prefs.period} onChange={() => toggle('period')} />
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', border: '1px solid #e5e7eb', borderRadius: 8 }}>
-          <span>Fertility status estimation</span>
-          <input type="checkbox" checked={prefs.fertility} onChange={() => toggle('fertility')} />
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', border: '1px solid #e5e7eb', borderRadius: 8 }}>
-          <span>Cycle deviation detection</span>
-          <input type="checkbox" checked={prefs.deviations} onChange={() => toggle('deviations')} />
-        </label>
+      <div style={{ marginTop: 24, display: 'grid', gap: 12 , width: '69%'}}>
+        <PreferenceItem
+          label="Period predictions"
+          checked={prefs.period}
+          onChange={() => toggle('period')}
+        />
+        <PreferenceItem
+          label="Fertility status estimation"
+          checked={prefs.fertility}
+          onChange={() => toggle('fertility')}
+        />
+        <PreferenceItem
+          label="Cycle deviation detection"
+          checked={prefs.deviations}
+          onChange={() => toggle('deviations')}
+        />
       </div>
 
       <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>

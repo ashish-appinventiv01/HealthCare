@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import TextField from '../../components/TextField.jsx'
+import MUITextField from '../../components/MUITextField.jsx'
+import DatePicker from '../../components/DatePicker.jsx'
 import IconButton from '../../components/IconButton.jsx'
 import Button from '../../components/Button.jsx'
+import Modal from '../../components/Modal.jsx'
 import EyeOpen from '../../assets/icons/EyeOpen.jsx'
 import EyeOff from '../../assets/icons/EyeOff.jsx'
 import { register } from '../../utils/authApi.js'
@@ -11,44 +14,57 @@ import checkCircle from '../../assets/Images/check_circle.png'
 import uncheckedCircle from '../../assets/Images/unchecked_circle.png'
 
 export default function Register() {
-  const [identifier, setIdentifier] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
+  const [method, setMethod] = useState('sms')
+
+  const formik = useFormik({
+    initialValues: { identifier: '', password: '', dob: '' },
+    onSubmit: () => {
+      setError('')
+      setOpen(true)
+    },
+  })
 
   // Live password validation rules
-  const passHasValidLength = password.length >= 8 && password.length <= 15
-  const passHasUppercase = /[A-Z]/.test(password)
-  const passHasLowercase = /[a-z]/.test(password)
-  const passHasNumber = /[0-9]/.test(password)
-  const passHasSpecial = /[@$%&]/.test(password)
+  const passHasValidLength = formik.values.password.length >= 8 && formik.values.password.length <= 15
+  const passHasUppercase = /[A-Z]/.test(formik.values.password)
+  const passHasLowercase = /[a-z]/.test(formik.values.password)
+  const passHasNumber = /[0-9]/.test(formik.values.password)
+  const passHasSpecial = /[@$%&]/.test(formik.values.password)
   const allPasswordRulesOk = passHasValidLength && passHasUppercase && passHasLowercase && passHasNumber && passHasSpecial
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleRegister = async () => {
     setError('')
     setLoading(true)
     try {
-      await register({ identifier, password })
-      navigate('/verify', { state: { context: 'register', identifier, method: 'email' } })
+      await register({ identifier: formik.values.identifier, password: formik.values.password })
+      navigate('/verify', { state: { context: 'register', identifier: formik.values.identifier, method } })
     } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
+      setOpen(false)
     }
   }
 
   return (
     <AuthLayout title="Welcome to CWCFNP" subtitle="Let’s create your account">
-      <form onSubmit={handleSubmit}>
-        <TextField id="reg-email" label="Email/Phone Number" type="text" variant="filled" fullWidth value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder="Enter email" />
-        <TextField id="reg-pass" label="Password" type={showPassword ? 'text' : 'password'} variant="filled" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" InputProps={{ endAdornment: (
-          <IconButton onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff/> : <EyeOpen/>}</IconButton>
-        ) }} />
+      <FormikProvider value={formik}>
+      <Form>
+        <div style={{ marginBottom: 12 }}>
+          <MUITextField label="Email/Phone Number" type="text" value={formik.values.identifier} onChange={(v) => formik.setFieldValue('identifier', v)} placeholder="Enter email or phone number" />
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <MUITextField label="Password" type={showPassword ? 'text' : 'password'} value={formik.values.password} onChange={(v) => formik.setFieldValue('password', v)} placeholder="Enter password" InputProps={{ endAdornment: (
+            <IconButton onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff/> : <EyeOpen/>}</IconButton>
+          ) }} />
+        </div>
         {/* Password rules checklist - visible only after typing */}
-        {password.length > 0 && (
+        {formik.values.password.length > 0 && (
           <div style={{ marginTop: 8, marginBottom: 12 }}>
             <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
               {[{
@@ -76,13 +92,41 @@ export default function Register() {
           </div>
         )}
         {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
-        <Button type="submit" disabled={loading || !identifier || !allPasswordRulesOk} full>
+        <Button type="submit" disabled={loading || !formik.values.identifier || !allPasswordRulesOk} full style={{ marginTop: 61 }}>
           {loading ? 'Registering...' : 'Register'}
         </Button>
         <div style={{ marginTop: 16, textAlign: 'center', color: '#6b7280' }}>
           Already have a account? <Link to="/login">Log in</Link>
         </div>
-      </form>
+      </Form>
+      </FormikProvider>
+
+      <Modal
+        title={"Select how you'd like to receive your verification code for Registration."}
+        open={open}
+        onClose={() => setOpen(false)}
+        footer={
+          <div className="modal-footer">
+            <Button className="modal-button" onClick={() => setOpen(false)} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 9, backgroundColor: '#e5e7eb', color: '#111827' }}>Cancel</Button>
+            <Button className="modal-button" onClick={handleRegister} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 9, backgroundColor: '#2483C5' }}>Continue</Button>
+          </div>
+        }
+      >
+        <div className="choice" onClick={() => setMethod('sms')} style={{ borderColor: method==='sms'? 'var(--brand)': '#e5e7eb' }}>
+          <input type="radio" checked={method==='sms'} readOnly />
+          <div>
+            <div>SMS (Text Message)</div>
+            <div style={{ color: '#6b7280', fontSize: 12 }}>342-392-4354</div>
+          </div>
+        </div>
+        <div className="choice" onClick={() => setMethod('email')} style={{ borderColor: method==='email'? 'var(--brand)': '#e5e7eb' }}>
+          <input type="radio" checked={method==='email'} readOnly />
+          <div>
+            <div>Email</div>
+            <div style={{ color: '#6b7280', fontSize: 12 }}>myemail@gmail.com</div>
+          </div>
+        </div>
+      </Modal>
     </AuthLayout>
   )
 }

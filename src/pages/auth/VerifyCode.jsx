@@ -34,6 +34,7 @@ export default function VerifyCode() {
     try {
       await verifyCode({ code })
       if (isFromRegister) {
+        localStorage.setItem('auth', 'true')
         navigate('/onboarding/step-1')
       } else {
         navigate('/reset')

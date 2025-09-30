@@ -1,41 +1,72 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useFormik, FormikProvider, Form } from 'formik'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import TextField from '../../components/TextField.jsx'
+import MUITextField from '../../components/MUITextField.jsx'
+import DatePicker from '../../components/DatePicker.jsx'
 import Button from '../../components/Button.jsx'
 
 export default function PersonalInfo() {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [dob, setDob] = useState('')
-  const [height, setHeight] = useState('')
-  const [weight, setWeight] = useState('')
 
-  const canNext = !!name && !!dob && !!height && !!weight
+  const formik = useFormik({
+    initialValues: { name: '', dob: '', height: '', weight: '' },
+    onSubmit: () => {
+      navigate('/onboarding/step-2')
+    },
+  })
+
+  const canNext = !!formik.values.name && !!formik.values.dob && !!formik.values.height && !!formik.values.weight
 
   return (
     <AuthLayout>
-      <div className="ob-parent">
-        {/* Header block */}
-        <div className="ob-header">
-          <div className="ob-step">Step 1 of 3</div>
-          <div className="ob-title">Personal Information</div>
-          <div className="ob-sub">Let’s start by setting up your profile with a few basic details.</div>
-        </div>
+      <FormikProvider value={formik}>
+        <Form>
+          <div className="ob-parent">
+            {/* Header block */}
+            <div className="ob-header">
+              <div className="ob-step">Step 1 of 3</div>
+              <div className="ob-title">Personal Information</div>
+              <div className="ob-sub">Let’s start by setting up your profile with a few basic details.</div>
+            </div>
 
-        {/* Fields block */}
-        <div className="ob-fields">
-          <TextField label="Name" placeholder="Enter Name" variant="outlined" value={name} onChange={(e) => setName(e.target.value)} inputClassName="ob-input" />
-          <TextField label="DOB" placeholder="Select Your DOB" type="date" variant="outlined" value={dob} onChange={(e) => setDob(e.target.value)} inputClassName="ob-input" />
-          <TextField label="Height" placeholder="Select Your Height" variant="outlined" value={height} onChange={(e) => setHeight(e.target.value)} inputClassName="ob-input" />
-          <TextField label="Weight" placeholder="Select Your Weight" variant="outlined" value={weight} onChange={(e) => setWeight(e.target.value)} inputClassName="ob-input" />
-        </div>
+            {/* Fields block */}
+            <div className="ob-fields">
+              <MUITextField
+                label="Name"
+                type="text"
+                value={formik.values.name}
+                onChange={(v) => formik.setFieldValue('name', v)}
+                placeholder="Enter Name"
+              />
+              <DatePicker
+                label="DOB"
+                value={formik.values.dob}
+                onChange={(v) => formik.setFieldValue('dob', v)}
+                placeholder="Select Your DOB"
+              />
+              <MUITextField
+                label="Height"
+                type="text"
+                value={formik.values.height}
+                onChange={(v) => formik.setFieldValue('height', v)}
+                placeholder="Select Your Height"
+              />
+              <MUITextField
+                label="Weight"
+                type="text"
+                value={formik.values.weight}
+                onChange={(v) => formik.setFieldValue('weight', v)}
+                placeholder="Select Your Weight"
+              />
+            </div>
 
-        <div className="ob-actions">
-          <Button disabled style={{ width: 200 }}>Back</Button>
-          <Button onClick={() => navigate('/onboarding/step-2')} disabled={!canNext} style={{ width: 200 }}>Next</Button>
-        </div>
-      </div>
+            <div className="ob-actions">
+              <Button disabled style={{ width: 200 }}>Back</Button>
+              <Button type="submit" disabled={!canNext} style={{ width: 200 }}>Next</Button>
+            </div>
+          </div>
+        </Form>
+      </FormikProvider>
     </AuthLayout>
   )
 }

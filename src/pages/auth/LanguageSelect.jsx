@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout'
+import MUISelect from '../../components/MUISelect.jsx'
 
 export default function LanguageSelect() {
   const navigate = useNavigate()
@@ -23,26 +24,16 @@ export default function LanguageSelect() {
     >
       <form onSubmit={handleContinue} className="lang-form">
         <div className="lang-options">
-          <label className="lang-option">
-            <input
-              type="radio"
-              name="language"
-              value="en"
-              checked={language === 'en'}
-              onChange={() => setLanguage('en')}
-            />
-            <span>English</span>
-          </label>
-          <label className="lang-option">
-            <input
-              type="radio"
-              name="language"
-              value="es"
-              checked={language === 'es'}
-              onChange={() => setLanguage('es')}
-            />
-            <span>Español</span>
-          </label>
+          <MUISelect
+            label="Language"
+            value={language}
+            onChange={setLanguage}
+            options={[
+              { value: 'en', label: 'English' },
+              { value: 'es', label: 'Español' },
+            ]}
+            placeholder="Select language"
+          />
         </div>
 
         <p className="lang-note">You can change this later in the settings.</p>

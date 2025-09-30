@@ -1,25 +1,33 @@
 import { useState } from 'react'
+import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import TextField from '../../components/TextField.jsx'
+import MUITextField from '../../components/MUITextField.jsx'
 import Button from '../../components/Button.jsx'
 import Modal from '../../components/Modal.jsx'
 import { sendResetCode } from '../../utils/authApi.js'
 
 export default function ForgotPassword() {
-  const [identifier, setIdentifier] = useState('')
   const [open, setOpen] = useState(false)
   const [method, setMethod] = useState('sms')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
+  const formik = useFormik({
+    initialValues: { identifier: '' },
+    onSubmit: () => {
+      setError('')
+      setOpen(true)
+    },
+  })
+
   const handleSend = async () => {
     setError('')
     setLoading(true)
     try {
-      await sendResetCode({ identifier, method })
-      navigate('/verify', { state: { identifier, method } })
+      await sendResetCode({ identifier: formik.values.identifier, method })
+      navigate('/verify', { state: { identifier: formik.values.identifier, method } })
     } catch (err) {
       setError(err.message)
     } finally {
@@ -29,26 +37,27 @@ export default function ForgotPassword() {
   }
 
   return (
-    <AuthLayout>
-      <div className="auth-header">
-        <Link to="/login" className="back-link">&lt; Back to Login</Link>
-        <h1>Forgot Password</h1>
-        <p className="sub">We’ll send you a code to verify your account access.</p>
-      </div>
-      <TextField id="forgot-email" label="Email/Phone Number" variant="filled" fullWidth value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder="Please enter your email or phone number" />
-      {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
-      <Button onClick={() => setOpen(true)} disabled={!identifier} variant="primary" full>
-        {loading ? 'Sending...' : 'Send Code'}
-      </Button>
-      
+    <AuthLayout title="Forgot Password" subtitle="We’ll send you a code to verify your account access.">
+      <FormikProvider value={formik}>
+      <Form>
+        <div style={{ marginBottom: 12 }}>
+          <MUITextField label="Email/Phone Number" value={formik.values.identifier} onChange={(v) => formik.setFieldValue('identifier', v)} placeholder="Please enter your email or phone number" />
+        </div>
+        {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
+        <Button type="submit" disabled={loading || !formik.values.identifier} full style={{ marginTop: 61 }}>
+          {loading ? 'Sending...' : 'Send Code'}
+        </Button>
+      </Form>
+      </FormikProvider>
+
       <Modal
         title={"Select how you'd like to receive your verification code for Reset Password."}
         open={open}
         onClose={() => setOpen(false)}
         footer={
           <div className="modal-footer">
-            <Button className="modal-button" onClick={() => setOpen(false)} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 1, backgroundColor: '#e5e7eb', color: '#111827' }}>Cancel</Button>
-            <Button className="modal-button" onClick={handleSend} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 1, backgroundColor: '#2483C5' }}>Continue</Button>
+            <Button className="modal-button" onClick={() => setOpen(false)} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 9, backgroundColor: '#e5e7eb', color: '#111827' }}>Cancel</Button>
+            <Button className="modal-button" onClick={handleSend} style={{ width: 190, height: 48, borderWidth: 1, borderRadius: 9, backgroundColor: '#2483C5' }}>Continue</Button>
           </div>
         }
       >
