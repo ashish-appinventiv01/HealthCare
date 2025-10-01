@@ -6,6 +6,28 @@ import MUISelect from '@/components/MUISelect.jsx'
 
 const FREQUENCIES = ['Daily', 'Weekly', 'Monthly', 'Once']
 
+const ArrowCircle = ({ className }) => (
+  <div
+    aria-hidden
+    className={className}
+    style={{
+      width: 28,
+      height: 28,
+      borderRadius: '50%',
+      backgroundColor: '#2483C5',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'transform 0.2s ease',
+      top: '14px'
+    }}
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 10l5 5 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </div>
+)
+
 export default function ReminderModal({ open, onClose, onSave }) {
   const [title, setTitle] = useState('')
   const [date, setDate] = useState('')
@@ -93,6 +115,7 @@ export default function ReminderModal({ open, onClose, onSave }) {
                 value={frequency}
                 onChange={setFrequency}
                 options={FREQUENCIES}
+                SelectProps={{ IconComponent: ArrowCircle }}
               />
             </div>
           </div>

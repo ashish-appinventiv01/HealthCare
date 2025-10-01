@@ -36,12 +36,19 @@ export default function DatePicker({
             fullWidth: true,
             size: 'medium',
             variant: 'filled',
+
             placeholder,
             error,
             helperText,
             InputLabelProps: { shrink: computedShrink, ...(InputLabelProps || {}) },
             InputProps: { disableUnderline: true, ...(InputProps || {}) },
             sx: {
+
+              ".MuiPickersInputBase-root": {
+                backgroundColor: '#FFFFFF !important',
+                borderRadius: '8px',
+                border: '1px solid #BAC3C8',
+              },
               '& .MuiFilledInput-root': {
                 height: '55px',
                 borderRadius: '8px',
