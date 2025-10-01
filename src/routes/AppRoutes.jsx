@@ -10,14 +10,19 @@ import PersonalInfo from '../pages/onboarding/PersonalInfo.jsx'
 import CycleHealth from '../pages/onboarding/CycleHealth.jsx'
 import Preferences from '../pages/onboarding/Preferences.jsx'
 import Dashboard from '../pages/Dashboard.jsx'
+import Home from '../pages/Home.jsx'
 import DashboardLayout from '../layouts/DashboardLayout.jsx'
 import Settings from '../pages/Settings.jsx'
 import LanguagePreference from '../pages/LanguagePreference.jsx'
 import TrackingPreference from '../pages/TrackingPreference.jsx'
 import ManageConsent from '../pages/ManageConsent.jsx'
 import Reminders from '../pages/Reminders.jsx'
+import Logs from '../pages/Logs.jsx'
+import Insights from '../pages/Insights.jsx'
 import FAQs from '../pages/FAQs.jsx'
+import HelpSupport from '../pages/HelpSupport.jsx'
 import LegalContent from '../pages/LegalContent.jsx'
+import EducationalContent from '../pages/EducationalContent.jsx'
 import PrivateRoute from './PrivateRoute.jsx'
 import PublicRoute from './PublicRoute.jsx'
 
@@ -40,13 +45,18 @@ export default function AppRoutes() {
         <Route path="/onboarding/step-1" element={<PersonalInfo />} />
         <Route path="/onboarding/step-2" element={<CycleHealth />} />
         <Route path="/onboarding/step-3" element={<Preferences />} />
+        <Route path="/home" element={<DashboardLayout><Home /></DashboardLayout>} />
         <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        <Route path="/insights" element={<DashboardLayout><Insights /></DashboardLayout>} />
+        <Route path="/logs" element={<DashboardLayout><Logs /></DashboardLayout>} />
         <Route path="/reminders" element={<DashboardLayout><Reminders /></DashboardLayout>} />
         <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>} />
         <Route path="/settings/manage-consent" element={<DashboardLayout><ManageConsent /></DashboardLayout>} />
         <Route path="/settings/language" element={<DashboardLayout><LanguagePreference /></DashboardLayout>} />
         <Route path="/settings/tracking-preference" element={<DashboardLayout><TrackingPreference /></DashboardLayout>} />
         <Route path="/faqs" element={<DashboardLayout><FAQs /></DashboardLayout>} />
+        <Route path="/help-support" element={<DashboardLayout><HelpSupport /></DashboardLayout>} />
+        <Route path="/educational-content" element={<DashboardLayout><EducationalContent /></DashboardLayout>} />
         <Route
           path="/legal/terms"
           element={

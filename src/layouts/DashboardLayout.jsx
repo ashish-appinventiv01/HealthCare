@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ConfirmationModal from '../components/DeleteAccountModal'
+import NotificationModal from '../components/NotificationModal'
+import logoutIcon from '../assets/icons/logout.svg'
 
 export default function DashboardLayout({ children }) {
   const navigate = useNavigate()
 
   const menuItems = [
-    { label: 'Home', path: '/dashboard' },
-    { label: 'Logs', path: '/dashboard' },
-    { label: 'Insights', path: '/dashboard' },
+    { label: 'Home', path: '/home' },
+    { label: 'Logs', path: '/logs' },
+    { label: 'Insights', path: '/insights' },
     // Settings rendered as expandable group below
     { label: 'Static Content', path: '/dashboard' },
-    { label: 'Help & Support', path: '/dashboard' },
+    { label: 'Help & Support', path: '/help-support' },
     { label: 'Logout', path: null }
   ]
 
@@ -18,6 +21,9 @@ export default function DashboardLayout({ children }) {
   const [activeSubItem, setActiveSubItem] = useState('Manage Goals')
   const [isStaticOpen, setIsStaticOpen] = useState(false)
   const [activeStaticItem, setActiveStaticItem] = useState('FAQs')
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false)
 
   const settingsItems = [
     { label: 'Manage Goals', path: '/settings' },
@@ -37,6 +43,18 @@ export default function DashboardLayout({ children }) {
   const handleLogout = () => {
     localStorage.removeItem('auth')
     navigate('/login')
+  }
+
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true)
+  }
+
+  const handleDeleteAccount = () => {
+    // Add your delete account logic here
+    console.log('Account deletion confirmed')
+    setIsDeleteModalOpen(false)
+    // You might want to call an API to delete the account
+    // and then redirect to login or a confirmation page
   }
 
   const ArrowIcon = () => (
@@ -79,8 +97,14 @@ export default function DashboardLayout({ children }) {
       <header className="dashboard-header">
         <div className="dashboard-brand">CWCNFP</div>
         <div className="dashboard-header-actions">
-          <NotificationIcon />
-          <div className="user-avatar-small">
+          <div 
+            className="notification-icon-wrapper" 
+            onClick={() => setIsNotificationModalOpen(!isNotificationModalOpen)}
+            style={{ cursor: 'pointer' }}
+          >
+            <NotificationIcon />
+          </div>
+          <div className="user-avatar-small" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
             <span>MJ</span>
           </div>
         </div>
@@ -89,7 +113,7 @@ export default function DashboardLayout({ children }) {
       {/* Sidebar */}
       <aside className="dashboard-sidebar">
         {/* User Profile Section */}
-        <div className="sidebar-profile">
+        <div className="sidebar-profile" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
           <div className="user-avatar-large">
             <span>MJ</span>
           </div>
@@ -106,7 +130,7 @@ export default function DashboardLayout({ children }) {
             <button
               key={index}
               className={`nav-item`}
-              onClick={item.label === 'Logout' ? handleLogout : () => item.path && navigate(item.path)}
+              onClick={item.label === 'Logout' ? handleLogoutClick : () => item.path && navigate(item.path)}
             >
               <span>{item.label}</span>
               <ArrowIcon />
@@ -180,7 +204,7 @@ export default function DashboardLayout({ children }) {
             <button
               key={`after-${index}`}
               className={`nav-item`}
-              onClick={item.label === 'Logout' ? handleLogout : () => item.path && navigate(item.path)}
+              onClick={item.label === 'Logout' ? handleLogoutClick : () => item.path && navigate(item.path)}
             >
               <span>{item.label}</span>
               {item.label !== 'Logout' ? <ArrowIcon /> : null}
@@ -191,7 +215,12 @@ export default function DashboardLayout({ children }) {
         {/* Footer */}
         <div className="sidebar-footer">
           <div className="version-info">Version 9.86.01</div>
-          <button className="delete-account">Delete Account</button>
+          <button 
+            className="delete-account"
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            Delete Account
+          </button>
         </div>
       </aside>
 
@@ -199,6 +228,33 @@ export default function DashboardLayout({ children }) {
       <main className="dashboard-main">
         {children}
       </main>
+
+      {/* Delete Account Modal */}
+      <ConfirmationModal
+        open={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteAccount}
+        title="Delete"
+        subtitle="Are you sure you want to Delete your account?"
+        confirmButtonText="Delete"
+      />
+
+      {/* Logout Modal */}
+      <ConfirmationModal
+        open={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+        title="Logout"
+        subtitle="Are you sure you want to logout"
+        icon={logoutIcon}
+        confirmButtonText="Logout"
+      />
+
+      {/* Notification Modal */}
+      <NotificationModal
+        isOpen={isNotificationModalOpen}
+        onClose={() => setIsNotificationModalOpen(false)}
+      />
     </div>
   )
 }
