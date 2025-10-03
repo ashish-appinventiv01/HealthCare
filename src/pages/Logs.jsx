@@ -217,9 +217,7 @@ export default function Logs() {
           <div className="section-header">
             <h3 className="section-title">Basal Body Temperature</h3>
             <div className="info-icon">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <path d="M8.335 11.269V8.335M8.335 5.401H8.34234M15.67 8.335C15.67 12.386 12.386 15.67 8.335 15.67C4.28399 15.67 1 12.386 1 8.335C1 4.28399 4.28399 1 8.335 1C12.386 1 15.67 4.28399 15.67 8.335Z" stroke="#3A4F5F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <img src="/src/assets/icons/Icon.svg" alt="info" width="15" height="15" />
             </div>
           </div>
           <div className="temperature-input">

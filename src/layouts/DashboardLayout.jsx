@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }) {
     { label: 'Logout', path: null }
   ]
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState(true)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [activeSubItem, setActiveSubItem] = useState('Manage Goals')
   const [isStaticOpen, setIsStaticOpen] = useState(false)
   const [activeStaticItem, setActiveStaticItem] = useState('FAQs')
@@ -130,7 +130,11 @@ export default function DashboardLayout({ children }) {
             <button
               key={index}
               className={`nav-item`}
-              onClick={item.label === 'Logout' ? handleLogoutClick : () => item.path && navigate(item.path)}
+              onClick={item.label === 'Logout' ? handleLogoutClick : () => {
+                setIsSettingsOpen(false)
+                setIsStaticOpen(false)
+                if (item.path) navigate(item.path)
+              }}
             >
               <span>{item.label}</span>
               <ArrowIcon />
@@ -142,9 +146,12 @@ export default function DashboardLayout({ children }) {
             <button
               className="nav-item nav-group-header"
               onClick={() => {
-                const next = !isSettingsOpen
-                setIsSettingsOpen(next)
-                if (next) setIsStaticOpen(false)
+                if (!isSettingsOpen) {
+                  setIsSettingsOpen(true)
+                  setIsStaticOpen(false)
+                  setActiveSubItem('Manage Goals')
+                  navigate('/settings')
+                }
               }}
             >
               <span>Settings</span>
@@ -173,9 +180,12 @@ export default function DashboardLayout({ children }) {
             <button
               className="nav-item nav-group-header"
               onClick={() => {
-                const next = !isStaticOpen
-                setIsStaticOpen(next)
-                if (next) setIsSettingsOpen(false)
+                if (!isStaticOpen) {
+                  setIsStaticOpen(true)
+                  setIsSettingsOpen(false)
+                  setActiveStaticItem('FAQs')
+                  navigate('/faqs')
+                }
               }}
             >
               <span>Static Content</span>
@@ -204,7 +214,11 @@ export default function DashboardLayout({ children }) {
             <button
               key={`after-${index}`}
               className={`nav-item`}
-              onClick={item.label === 'Logout' ? handleLogoutClick : () => item.path && navigate(item.path)}
+              onClick={item.label === 'Logout' ? handleLogoutClick : () => {
+                setIsSettingsOpen(false)
+                setIsStaticOpen(false)
+                if (item.path) navigate(item.path)
+              }}
             >
               <span>{item.label}</span>
               {item.label !== 'Logout' ? <ArrowIcon /> : null}

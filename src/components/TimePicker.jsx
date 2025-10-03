@@ -72,7 +72,7 @@ export default function TimePicker({
                 WebkitTextFillColor: '#1A1A1A',
               },
               '& .MuiFilledInput-input::placeholder': {
-                color: 'rgba(26, 26, 26, 0.20)',
+                // color: 'rgba(26, 26, 26, 0.20)',
                 opacity: 1,
                 color: 'rgba(25.50, 25.50, 25.50, 0.20)',
                 fontSize: '14px',
@@ -91,7 +91,7 @@ export default function TimePicker({
               '& .MuiInputLabel-shrink': {
                 transform: 'translate(12px, 6px) scale(1)',
               },
-              '& .MuiFilledInput-root.Mui-focused': { borderColor: '#2483C5' },
+
             },
           },
         }}

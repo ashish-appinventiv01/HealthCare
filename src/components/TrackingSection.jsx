@@ -44,9 +44,7 @@ export default function TrackingSection({ title, options, type = 'circular', has
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8.335 11.269V8.335M8.335 5.401H8.34234M15.67 8.335C15.67 12.386 12.386 15.67 8.335 15.67C4.28399 15.67 1 12.386 1 8.335C1 4.28399 4.28399 1 8.335 1C12.386 1 15.67 4.28399 15.67 8.335Z" stroke="#3A4F5F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <img src="/src/assets/icons/Icon.svg" alt="info" width="15" height="15" />
       {showTooltip && (
         <div className="tooltip">
           <div className="tooltip-content">
@@ -81,9 +79,7 @@ export default function TrackingSection({ title, options, type = 'circular', has
           {isSelected && (
             <>
               <div className="option-image">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.818 18C1.2998 18 0.867414 17.8267 0.520863 17.4802C0.174312 17.1337 0.000656128 16.701 0 16.182V1.818C0 1.29976 0.173656 0.867414 0.520863 0.520863C0.868071 0.174312 1.30052 0.000656128 1.818 0H16.1831C16.7006 0 17.133 0.173656 17.4802 0.520863C17.8275 0.868071 18.0007 1.30052 18 1.818V16.1831C18 16.7006 17.8267 17.133 17.4802 17.4802C17.1337 17.8275 16.701 18.0007 16.182 18H1.818ZM1.818 16.875H16.1831C16.3556 16.875 16.5142 16.803 16.659 16.659C16.8037 16.515 16.8757 16.356 16.875 16.182V1.818C16.875 1.64471 16.803 1.48571 16.659 1.341C16.515 1.19629 16.356 1.12429 16.182 1.125H1.818C1.64471 1.125 1.48571 1.197 1.341 1.341C1.19629 1.485 1.12429 1.644 1.125 1.818V16.1831C1.125 16.3556 1.197 16.5142 1.341 16.659C1.485 16.8037 1.6436 16.8757 1.8169 16.875M3.9375 14.0625H14.2357L11.0554 9.82124L8.11354 13.5427L6.14479 11.1634L3.9375 14.0625Z" fill="#0D99FF"/>
-                </svg>
+                <img src="/src/assets/icons/selected_option.svg" alt="selected option" width="18" height="18" />
               </div>
               <div className="selection-indicator">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
