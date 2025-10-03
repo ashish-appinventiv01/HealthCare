@@ -55,12 +55,12 @@ a:hover {
 
 .auth-left .mark {
   /* position: absolute; */
-  bottom: 5rem;
+  bottom: 5vw;
   right: 10%;
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   font-weight: 600;
   font-style: normal;
-  font-size: 2.5rem;
+  font-size: 2.5vw;
   line-height: 125%;
   letter-spacing: 0;
   text-align: center;
