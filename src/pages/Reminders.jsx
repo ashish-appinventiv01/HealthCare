@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
-import ReminderModal from '@/components/ReminderModal.jsx'
+import ReminderModal from '@/components/Modals/ReminderModal.jsx'
 
 export default function Reminders() {
   const [reminders, setReminders] = useState([

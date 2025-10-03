@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import DateSelector from '../components/DateSelector.jsx'
+import DateSelector from '../components/common/DateSelector.jsx'
 import redFrameLogo from './red_frame.svg'
 
 // Placeholder Image Icon Component

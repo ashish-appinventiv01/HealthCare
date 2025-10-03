@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import MUITextField from './MUITextField.jsx'
-import MUISelect from './MUISelect.jsx'
+import MUITextField from '../common/MUITextField.jsx'
+import MUISelect from '../common/MUISelect.jsx'
 
 export default function AddMedicationModal({ open, onClose, onSave }) {
   const [name, setName] = useState('')

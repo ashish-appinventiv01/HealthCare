@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import Button from '../../components/Button.jsx'
+import Button from '../../components/common/Button.jsx'
 import { sendResetCode, verifyCode } from '../../utils/authApi.js'
 
 export default function VerifyCode() {

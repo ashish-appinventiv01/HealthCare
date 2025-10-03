@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/MUITextField.jsx'
+import MUITextField from '../../components/common/MUITextField.jsx'
 import IconButton from '../../components/IconButton.jsx'
 import EyeOpen from '../../assets/icons/EyeOpen.jsx'
 import EyeOff from '../../assets/icons/EyeOff.jsx'
-import Button from '../../components/Button.jsx'
+import Button from '../../components/common/Button.jsx'
 import { resetPassword } from '../../utils/authApi.js'
 
 export default function ResetPassword() {

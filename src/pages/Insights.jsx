@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Button from '../components/Button'
+import Button from '../components/common/Button'
 
 export default function Insights() {
   const [activeTab, setActiveTab] = useState('Summary')
@@ -73,7 +73,7 @@ export default function Insights() {
   ]
 
   return (
-    <div className="insights-container" style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: 32 }}>
+    <div className="insights-container" style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: '2rem 1.375rem 2rem 1.375rem' }}>
       {/* Header */}
       <div className="insights-header">
         <h1 className="insights-title">Insights</h1>

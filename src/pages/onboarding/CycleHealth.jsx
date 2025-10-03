@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikProvider, Form } from 'formik'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUISelect from '../../components/MUISelect.jsx'
-import Button from '../../components/Button.jsx'
+import MUISelect from '../../components/common/MUISelect.jsx'
+import Button from '../../components/common/Button.jsx'
 
 export default function CycleHealth() {
   const navigate = useNavigate()

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GoalToggle } from "@/components/GoalToggle";
+import { GoalToggle } from "@/components/common/GoalToggle";
 import { Card } from "@/components/ui/card";
 
 const Index = () => {

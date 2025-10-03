@@ -1,6 +1,6 @@
-import Modal from './Modal'
-import deleteUserIcon from '../assets/icons/delete_user.svg'
-import logoutIcon from '../assets/icons/logout.svg'
+import Modal from '../Modal'
+import deleteUserIcon from '../../assets/icons/delete_user.svg'
+import logoutIcon from '../../assets/icons/logout.svg'
 
 export default function ConfirmationModal({ 
   open, 

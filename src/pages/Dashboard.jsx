@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
-import PhoneNumberModal from '../components/PhoneNumberModal.jsx'
-import DatePicker from '../components/DatePicker.jsx'
-import MUITextField from '../components/MUITextField.jsx'
+import PhoneNumberModal from '../components/Modals/PhoneNumberModal.jsx'
+import DatePicker from '../components/common/DatePicker.jsx'
+import MUITextField from '../components/common/MUITextField.jsx'
 
 export default function Dashboard() {
   const [formData, setFormData] = useState({

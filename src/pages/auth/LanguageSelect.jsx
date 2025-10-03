@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout'
-import MUISelect from '../../components/MUISelect.jsx'
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
 export default function LanguageSelect() {
   const navigate = useNavigate()
@@ -24,19 +24,49 @@ export default function LanguageSelect() {
     >
       <form onSubmit={handleContinue} className="lang-form">
         <div className="lang-options">
-          <MUISelect
-            label="Language"
-            value={language}
-            onChange={setLanguage}
-            options={[
-              { value: 'en', label: 'English' },
-              { value: 'es', label: 'Español' },
-            ]}
-            placeholder="Select language"
-          />
+          <FormControl component="fieldset">
+            <RadioGroup
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              sx={{ gap: 2 }}
+            >
+              <FormControlLabel
+                value="en"
+                control={<Radio />}
+                label={
+                  <Typography variant="body1" sx={{ fontWeight: language === 'en' ? 500 : 400 }}>
+                    English
+                  </Typography>
+                }
+                sx={{
+                  '& .MuiFormControlLabel-label': {
+                    fontSize: '16px',
+                    color: language === 'en' ? '#1976d2' : '#666'
+                  }
+                }}
+              />
+              <FormControlLabel
+                value="es"
+                control={<Radio />}
+                label={
+                  <Typography variant="body1" sx={{ fontWeight: language === 'es' ? 500 : 400 }}>
+                    Español
+                  </Typography>
+                }
+                sx={{
+                  '& .MuiFormControlLabel-label': {
+                    fontSize: '16px',
+                    color: language === 'es' ? '#1976d2' : '#666'
+                  }
+                }}
+              />
+            </RadioGroup>
+          </FormControl>
         </div>
 
-        <p className="lang-note">You can change this later in the settings.</p>
+        <Typography variant="body2" sx={{ color: '#666', marginTop: 3, marginBottom: 3, textAlign: 'left' }}>
+          You can change this later in the settings.
+        </Typography>
 
         <div className="lang-actions">
           <button type="submit" className="btn primary" style={{ width: '100%' }}>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import Button from '../../components/Button.jsx'
+import Button from '../../components/common/Button.jsx'
 import PreferenceItem from '../../components/PreferenceItem.jsx'
 
 export default function Preferences() {

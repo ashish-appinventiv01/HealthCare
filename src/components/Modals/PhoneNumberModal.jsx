@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import PhoneVerificationModal from './PhoneVerificationModal.jsx'
-import MUITextField from './MUITextField.jsx'
+import MUITextField from '../common/MUITextField.jsx'
 import InputAdornment from '@mui/material/InputAdornment'
 import Popper from '@mui/material/Popper'
 import ClickAwayListener from '@mui/material/ClickAwayListener'

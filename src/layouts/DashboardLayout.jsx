@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ConfirmationModal from '../components/DeleteAccountModal'
-import NotificationModal from '../components/NotificationModal'
+import ConfirmationModal from '../components/Modals/DeleteAccountModal'
+import NotificationModal from '../components/Modals/NotificationModal'
 import logoutIcon from '../assets/icons/logout.svg'
 
 export default function DashboardLayout({ children }) {

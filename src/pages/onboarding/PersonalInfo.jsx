@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikProvider, Form } from 'formik'
 import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/MUITextField.jsx'
-import DatePicker from '../../components/DatePicker.jsx'
-import Button from '../../components/Button.jsx'
+import MUITextField from '../../components/common/MUITextField.jsx'
+import DatePicker from '../../components/common/DatePicker.jsx'
+import Button from '../../components/common/Button.jsx'
 
 export default function PersonalInfo() {
   const navigate = useNavigate()

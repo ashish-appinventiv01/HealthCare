@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TrackingSection from '../components/TrackingSection.jsx'
-import AddMedicationModal from '../components/AddMedicationModal.jsx'
-import DateSelector from '../components/DateSelector.jsx'
+import AddMedicationModal from '../components/Modals/AddMedicationModal.jsx'
+import DateSelector from '../components/common/DateSelector.jsx'
 
 export default function Logs() {
   const [selectedDate, setSelectedDate] = useState('03')
