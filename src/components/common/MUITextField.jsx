@@ -49,6 +49,14 @@ export default function MUITextField({
           border: '1px solid #BAC3C8',
           overflow: 'hidden',
         },
+        // Tame autofill background inside MUI input
+        '& .MuiFilledInput-input:-webkit-autofill, & .MuiFilledInput-input:-webkit-autofill:hover, & .MuiFilledInput-input:-webkit-autofill:focus': {
+          WebkitBoxShadow: '0 0 0px 1000px #FBFBFB inset',
+          boxShadow: '0 0 0px 1000px #FBFBFB inset',
+          WebkitTextFillColor: '#1A1A1A',
+          caretColor: '#1A1A1A',
+          transition: 'background-color 9999s ease-out 0s',
+        },
         '& .MuiFilledInput-root::before, & .MuiFilledInput-root::after': { display: 'none' },
         '& .MuiFilledInput-input': {
           padding: '20px 16px 1px 11px',

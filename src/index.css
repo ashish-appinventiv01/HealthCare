@@ -3669,3 +3669,16 @@ a:hover {
 .notification-icon-wrapper:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Neutralize browser autofill blue/yellow background for inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FBFBFB inset !important;
+  box-shadow: 0 0 0px 1000px #FBFBFB inset !important;
+  -webkit-text-fill-color: #1A1A1A !important;
+  caret-color: #1A1A1A;
+  transition: background-color 9999s ease-out 0s;
+}
