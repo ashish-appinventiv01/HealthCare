@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/common/MUITextField.jsx'
-import Button from '../../components/common/Button.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUITextField from '../../components/common/common-textfield/index.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import Modal from '../../components/Modal.jsx'
 import { sendResetCode } from '../../utils/authApi.js'
+import ROUTES from '../../routes/routes.jsx'
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)
@@ -27,7 +28,7 @@ export default function ForgotPassword() {
     setLoading(true)
     try {
       await sendResetCode({ identifier: formik.values.identifier, method })
-      navigate('/verify', { state: { identifier: formik.values.identifier, method } })
+      navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { identifier: formik.values.identifier, method } })
     } catch (err) {
       setError(err.message)
     } finally {

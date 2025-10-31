@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/common/MUITextField.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUITextField from '../../components/common/common-textfield/index.jsx'
 import IconButton from '../../components/IconButton.jsx'
 import EyeOpen from '../../assets/icons/EyeOpen.jsx'
 import EyeOff from '../../assets/icons/EyeOff.jsx'
-import Button from '../../components/common/Button.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import { resetPassword } from '../../utils/authApi.js'
+import ROUTES from '../../routes/routes.jsx'
 
 export default function ResetPassword() {
   const [showPass1, setShowPass1] = useState(false)
@@ -23,7 +24,7 @@ export default function ResetPassword() {
       setLoading(true)
       try {
         await resetPassword({ password: formik.values.password, confirm: formik.values.confirm })
-        navigate('/login')
+        navigate(ROUTES.AUTH_ROUTES.LOGIN)
       } catch (err) {
         setError(err.message)
       } finally {

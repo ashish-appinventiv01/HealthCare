@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import Button from '../../components/common/Button.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import { sendResetCode, verifyCode } from '../../utils/authApi.js'
-
+import ROUTES from '../../routes/routes.jsx'
 export default function VerifyCode() {
   const { state } = useLocation()
   const navigate = useNavigate()
@@ -35,9 +35,9 @@ export default function VerifyCode() {
       await verifyCode({ code })
       if (isFromRegister) {
         localStorage.setItem('auth', 'true')
-        navigate('/onboarding/step-1')
+        navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_1)
       } else {
-        navigate('/reset')
+        navigate(ROUTES.AUTH_ROUTES.RESET_PASSWORD)
       }
     } catch (err) {
       setError(err.message)

@@ -15,11 +15,13 @@
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "7.3.2",
     "@mui/x-date-pickers": "8.12.0",
+    "@reduxjs/toolkit": "^2.9.2",
     "clsx": "^2.1.1",
     "dayjs": "1.11.18",
     "formik": "^2.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.30.1",
     "tailwind-merge": "^3.3.1"
   },

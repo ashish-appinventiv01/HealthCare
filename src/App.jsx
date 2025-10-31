@@ -1,10 +1,10 @@
 import './App.css'
 
-import AppRoutes from './routes/AppRoutes.jsx'
+import RouteManager from './routes/index.jsx'
 
 function App() {
   return (
-    <AppRoutes />
+    <RouteManager />
   )
 }
 

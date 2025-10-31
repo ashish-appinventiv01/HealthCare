@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikProvider, Form } from 'formik'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUISelect from '../../components/common/MUISelect.jsx'
-import Button from '../../components/common/Button.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUISelect from '../../components/common/common-mui-select/index.jsx'
+import Button from '../../components/common/common-button/index.jsx'
+import ROUTES from '../../routes/routes.jsx'
+import { ArrowCircle as ArrowCircleIcon } from '../../assets/index.js'
+
 
 export default function CycleHealth() {
   const navigate = useNavigate()
@@ -21,32 +24,14 @@ export default function CycleHealth() {
       cycleLength: '',
     },
     onSubmit: () => {
-      navigate('/onboarding/step-3')
+      navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_3)
     },
   })
 
   const canNext = !!formik.values.lactating && !!formik.values.contraceptive && !!formik.values.bleedTimeline && !!formik.values.cycleLength
 
   const ArrowCircle = ({ className }) => (
-    <div
-      aria-hidden
-      className={className}
-      style={{
-        width: 28,
-        height: 28,
-        borderRadius: '50%',
-        backgroundColor: '#2483C5',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'transform 0.2s ease',
-        top: '14px'
-      }}
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 10l5 5 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
+    <img aria-hidden className={className} src={ArrowCircleIcon} width="28" height="28" alt="open" style={{ top: '14px' }} />
   )
 
   return (
@@ -96,7 +81,7 @@ export default function CycleHealth() {
             </div>
 
             <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>
-              <Button onClick={() => navigate('/onboarding/step-1')} style={{ width: 200 }}>Back</Button>
+              <Button onClick={() => navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_1)} style={{ width: 200 }}>Back</Button>
               <Button type="submit" disabled={!canNext} style={{ width: 200 }}>Next</Button>
             </div>
           </div>

@@ -1,17 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikProvider, Form } from 'formik'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/common/MUITextField.jsx'
-import DatePicker from '../../components/common/DatePicker.jsx'
-import Button from '../../components/common/Button.jsx'
-
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUITextField from '../../components/common/common-textfield/index.jsx'
+import DatePicker from '../../components/common/common-datepicker/index.jsx'
+import Button from '../../components/common/common-button/index.jsx'
+import ROUTES from '../../routes/routes.jsx'
 export default function PersonalInfo() {
   const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: { name: '', dob: '', height: '', weight: '' },
     onSubmit: () => {
-      navigate('/onboarding/step-2')
+      navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_2)
     },
   })
 

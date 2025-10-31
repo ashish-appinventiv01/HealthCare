@@ -1,35 +1,39 @@
-// Mock API to simulate async auth flows
+// Mocked auth API: make all calls succeed for development/testing
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export async function login({ identifier, password }) {
-  await delay(600)
-  if (!identifier || !password) throw new Error('Missing credentials')
-  return { ok: true, userId: 'u_123' }
-}
-
-export async function sendResetCode({ identifier, method }) {
-  await delay(600)
-  if (!identifier) throw new Error('Missing identifier')
-  return { ok: true, destination: method === 'sms' ? '342-392-4354' : 'myemail@gmail.com' }
-}
-
-export async function verifyCode({ code }) {
-  await delay(600)
-  if (code?.join?.('') === '268901' || code === '268901') return { ok: true }
-  if ((code?.join ? code.join('') : code).length === 6) return { ok: true }
-  throw new Error('Invalid code')
-}
-
-export async function resetPassword({ password, confirm }) {
-  await delay(600)
-  if (password !== confirm) throw new Error('Passwords do not match')
-  return { ok: true }
+  await delay(200);
+  if (!identifier || !password) return { ok: true };
+  return { ok: true };
 }
 
 export async function register({ identifier, password }) {
-  await delay(600)
-  if (!identifier || !password) throw new Error('Missing fields')
-  return { ok: true }
+  await delay(200);
+  return { ok: true };
 }
 
+export async function sendResetCode({ identifier, method }) {
+  await delay(200);
+  return { ok: true, destination: method === 'sms' ? '342-392-4354' : (identifier || 'user@example.com') };
+}
+
+export async function verifyCode({ code }) {
+  await delay(200);
+  return { ok: true };
+}
+
+export async function resetPassword({ password, confirm }) {
+  await delay(200);
+  return { ok: true };
+}
+
+export async function me() {
+  await delay(100);
+  return { ok: true, user: { id: 'u_dev', name: 'Dev User' } };
+}
+
+export async function logout() {
+  await delay(100);
+  return { ok: true };
+}

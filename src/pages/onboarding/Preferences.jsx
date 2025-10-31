@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import Button from '../../components/common/Button.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import PreferenceItem from '../../components/PreferenceItem.jsx'
-
+import ROUTES from '../../routes/routes.jsx'
 export default function Preferences() {
   const navigate = useNavigate()
   const [prefs, setPrefs] = useState({ period: false, fertility: false, deviations: false })
@@ -36,8 +36,8 @@ export default function Preferences() {
       </div>
 
       <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>
-        <Button onClick={() => navigate('/onboarding/step-2')} style={{ width: 200 }}>Back</Button>
-        <Button onClick={() => navigate('/login')} disabled={!canSave} style={{ width: 200 }}>Save</Button>
+        <Button onClick={() => navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_2)} style={{ width: 200 }}>Back</Button>
+        <Button onClick={() => navigate(ROUTES.AUTH_ROUTES.LOGIN)} disabled={!canSave} style={{ width: 200 }}>Save</Button>
       </div>
     </AuthLayout>
   )

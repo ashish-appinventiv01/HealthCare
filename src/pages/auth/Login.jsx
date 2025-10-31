@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/common/MUITextField.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUITextField from '../../components/common/common-textfield/index.jsx'
 import IconButton from '../../components/IconButton.jsx'
-import Button from '../../components/common/Button.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import EyeOpen from '../../assets/icons/EyeOpen.jsx'
 import EyeOff from '../../assets/icons/EyeOff.jsx'
 import Modal from '../../components/Modal.jsx'
 import { login } from '../../utils/authApi.js'
+import ROUTES from '../../routes/routes.jsx'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ export default function Login() {
     try {
       await login({ identifier: formik.values.identifier, password: formik.values.password })
       localStorage.setItem('auth', 'true')
-      navigate('/dashboard')
+      navigate(ROUTES.FEATURE_ROUTES.DASHBOARD)
     } catch (err) {
       setError(err.message)
     } finally {

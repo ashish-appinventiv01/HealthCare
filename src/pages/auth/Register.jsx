@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { useFormik, FormikProvider, Form } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout.jsx'
-import MUITextField from '../../components/common/MUITextField.jsx'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
+import MUITextField from '../../components/common/common-textfield/index.jsx'
 // import DatePicker from '../../components/common/DatePicker.jsx'
 import IconButton from '../../components/IconButton.jsx'
-import Button from '../../components/common/Button.jsx'
+import Button from '../../components/common/common-button/index.jsx'
 import Modal from '../../components/Modal.jsx'
 import EyeOpen from '../../assets/icons/EyeOpen.jsx'
 import EyeOff from '../../assets/icons/EyeOff.jsx'
 import { register } from '../../utils/authApi.js'
 import checkCircle from '../../assets/Images/check_circle.png'
 import uncheckedCircle from '../../assets/Images/unchecked_circle.png'
-
+import ROUTES from '../../routes/routes.jsx'
 export default function Register() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
@@ -42,7 +42,7 @@ export default function Register() {
     setLoading(true)
     try {
       await register({ identifier: formik.values.identifier, password: formik.values.password })
-      navigate('/verify', { state: { context: 'register', identifier: formik.values.identifier, method } })
+      navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { context: 'register', identifier: formik.values.identifier, method } })
     } catch (err) {
       setError(err.message)
     } finally {

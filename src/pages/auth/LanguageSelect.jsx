@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthLayout from '../../layouts/AuthLayout'
+import AuthLayout from '../../layouts/authLayout/index.jsx'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import ROUTES from '../../routes/routes'
 
 export default function LanguageSelect() {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export default function LanguageSelect() {
     try {
       localStorage.setItem('app_language', language)
     } catch {}
-    navigate('/login')
+    navigate(ROUTES.AUTH_ROUTES.LOGIN)
   }
 
   return (
