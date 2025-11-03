@@ -1,5 +1,6 @@
 import ButtonMUI from '@mui/material/Button'
 import type { SxProps } from '@mui/material/styles'
+import { COLORS, SIZES } from '@/constants/ui-constant'
 import type { ReactNode, MouseEvent, CSSProperties } from 'react'
 import type { ButtonProps as MUIButtonProps } from '@mui/material/Button'
 
@@ -19,21 +20,21 @@ interface CommonButtonProps {
 export default function Button({ children, onClick, type = 'button', variant = 'contained', disabled, full, className, style }: CommonButtonProps) {
   const background = style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')
     ? style.backgroundColor
-    : (disabled ? '#e0e0e0' : '#1976d2')
+    : (disabled ? COLORS.disabledBackground : COLORS.primary)
 
   const baseSx: SxProps = {
     textTransform: 'none',
-    fontSize: '16px',
+    fontSize: SIZES.paragraphSize,
     fontWeight: 500,
-    borderRadius: '8px',
+    borderRadius: SIZES.borderRadiusSm,
     transition: 'all 0.2s ease',
     fontFamily: 'inherit',
     ...(disabled
-      ? { backgroundColor: '#e0e0e0', color: '#999' }
+      ? { backgroundColor: COLORS.disabledBackground, color: COLORS.disabledText }
       : {
           backgroundColor: background,
-          color: '#fff',
-          '&:hover': { backgroundColor: (style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')) ? background : '#1565c0' },
+          color: COLORS.onPrimaryText,
+          '&:hover': { backgroundColor: (style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')) ? background : COLORS.primaryHover },
         }),
   }
 

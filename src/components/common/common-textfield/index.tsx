@@ -1,6 +1,7 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 import type { SxProps } from '@mui/material/styles'
 import type { ReactNode } from 'react'
+import { COLORS } from '@/constants/ui-constant'
 
 interface MUITextFieldProps {
   label?: ReactNode
@@ -14,6 +15,8 @@ interface MUITextFieldProps {
   InputLabelProps?: TextFieldProps['InputLabelProps']
   InputProps?: TextFieldProps['InputProps']
   onClick?: React.MouseEventHandler<HTMLDivElement>
+  onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>
+  onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>
   readOnly?: boolean
   shrink?: boolean
   sx?: SxProps
@@ -31,6 +34,8 @@ export default function MUITextField({
   InputLabelProps,
   InputProps,
   onClick,
+  onFocus,
+  onBlur,
   readOnly = false,
   shrink,
   sx,
@@ -61,33 +66,35 @@ export default function MUITextField({
       InputLabelProps={{ shrink: computedShrink, ...(InputLabelProps || {}) }}
       InputProps={mergedInputProps}
       onClick={onClick}
+      onFocus={onFocus}
+      onBlur={onBlur}
       sx={{
         '& .MuiFilledInput-root': {
           height: '55px',
           borderRadius: '8px',
-          background: '#FBFBFB',
-          border: '1px solid #BAC3C8',
+          background: COLORS.surface,
+          border: `1px solid ${error ? COLORS.error : COLORS.borderDefault}`,
           overflow: 'hidden',
         },
         // Tame autofill background inside MUI input
         '& .MuiFilledInput-input:-webkit-autofill, & .MuiFilledInput-input:-webkit-autofill:hover, & .MuiFilledInput-input:-webkit-autofill:focus': {
-          WebkitBoxShadow: '0 0 0px 1000px #FBFBFB inset',
-          boxShadow: '0 0 0px 1000px #FBFBFB inset',
-          WebkitTextFillColor: '#1A1A1A',
-          caretColor: '#1A1A1A',
+          WebkitBoxShadow: `0 0 0px 1000px ${COLORS.surface} inset`,
+          boxShadow: `0 0 0px 1000px ${COLORS.surface} inset`,
+          WebkitTextFillColor: COLORS.textPrimary,
+          caretColor: COLORS.textPrimary,
           transition: 'background-color 9999s ease-out 0s',
         },
         '& .MuiFilledInput-root::before, & .MuiFilledInput-root::after': { display: 'none' },
         '& .MuiFilledInput-input': {
           padding: '20px 16px 1px 11px',
-          color: '#1A1A1A',
+          color: COLORS.textPrimary,
           fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
           fontSize: '12px',
           fontWeight: 500,
           textAlign: 'left',
         },
         '& .MuiFilledInput-input::placeholder': {
-          color: 'rgba(26, 26, 26, 0.20)',
+          color: COLORS.placeholderMuted,
           opacity: 1,
           fontSize: '14px',
           fontFamily: 'Poppins',
@@ -95,17 +102,20 @@ export default function MUITextField({
           wordWrap: 'break-word',
         },
         '& .MuiInputLabel-root': {
-          color: 'rgba(75, 87, 90, 0.70)',
+          color: error ? COLORS.error : COLORS.labelMuted,
           fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
           fontSize: '10px',
           fontWeight: 500,
           transform: 'translate(12px, 12px) scale(1)',
           textAlign: 'left',
         },
+        '& .MuiInputLabel-root.Mui-focused': {
+          color: error ? COLORS.error : COLORS.labelMuted,
+        },
         '& .MuiInputLabel-shrink': {
           transform: 'translate(12px, 6px) scale(1)',
         },
-        '& .MuiFilledInput-root.Mui-focused': { borderColor: '#2483C5' },
+        '& .MuiFilledInput-root.Mui-focused': { borderColor: error ? COLORS.error : COLORS.focusPrimary },
         ...(sx || {}),
       }}
     />

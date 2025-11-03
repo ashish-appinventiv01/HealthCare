@@ -2,7 +2,7 @@ import useRecomendedContentHelper from './recomendedContent.helper'
 import { PlayButton } from '@assets/index'
 import placeholderImage from '@assets/icons/placeholder_image.svg'
 
-export default function EducationalContent() {
+  const EducationalContent = () =>  {
   const { isVideoPlaying, handlePlayVideo, handleBackToHome } = useRecomendedContentHelper()
 
   const contentCards = [
@@ -85,3 +85,4 @@ export default function EducationalContent() {
     </div>
   )
 }
+export default EducationalContent;

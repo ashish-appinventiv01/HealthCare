@@ -1,4 +1,5 @@
 import type { MouseEventHandler } from 'react'
+import { COLORS } from '@/constants/ui-constant'
 
 interface GoalToggleProps {
   label: string
@@ -15,9 +16,9 @@ export function GoalToggle({ label, checked, onChange, isLast }: GoalToggleProps
       alignItems: 'center',
       gap: 16,
       padding: '12px 8px',
-      borderBottom: isLast ? 'none' : '1px solid #F0F2F5'
+      borderBottom: isLast ? 'none' : `1px solid ${COLORS.borderDefault}`
     }}>
-      <label htmlFor={label} style={{ fontSize: 14, color: '#191919', cursor: 'pointer' }}>
+      <label htmlFor={label} style={{ fontSize: 14, color: COLORS.textPrimary, cursor: 'pointer' }}>
         {label}
       </label>
       <div style={{ display: 'flex', justifyContent: 'end' }}>
@@ -31,7 +32,7 @@ export function GoalToggle({ label, checked, onChange, isLast }: GoalToggleProps
             width: 36,
             height: 20,
             borderRadius: 999,
-            background: checked ? '#2483C5' : '#E5E7EB',
+            background: checked ? COLORS.focusPrimary : COLORS.gray200,
             border: 'none',
             cursor: 'pointer'
           }}
@@ -42,9 +43,9 @@ export function GoalToggle({ label, checked, onChange, isLast }: GoalToggleProps
             left: checked ? 18 : 2,
             width: 16,
             height: 16,
-            background: '#fff',
+            background: COLORS.white,
             borderRadius: '50%',
-            boxShadow: '0 1px 3px rgba(0,0,0,.2)'
+            boxShadow: `0 1px 3px ${COLORS.shadowMuted}`
           }} />
         </button>
       </div>

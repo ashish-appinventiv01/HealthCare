@@ -3693,3 +3693,6 @@ select:-webkit-autofill {
   caret-color: #1A1A1A;
   transition: background-color 9999s ease-out 0s;
 }
+.css-1wnl1xe-MuiInputBase-root-MuiFilledInput-root:hover {
+  background-color: #FBFBFB !important;
+}

@@ -1,6 +1,6 @@
 import useRemindersHelper from './reminders.helper'
 import deleteIcon from '@assets/icons/delete_icon.svg'
-import ReminderModal from '@components/Modals/reminderModal'
+import ReminderModal from '@/components/modals/reminderModal'
 
 export default function Reminders() {
   const { reminders, setReminders, openModal, setOpenModal, toggleReminder, deleteReminder } = useRemindersHelper()

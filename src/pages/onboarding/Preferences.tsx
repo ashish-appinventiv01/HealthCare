@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import Button from '@components/common/common-button'
-import PreferenceItem from '@components/preferenceItemCheckbox/PreferenceItem'
+import PreferenceItem from '@/components/preferenceItemCheckbox'
 import ROUTES from '@routes/routes'
 export default function Preferences() {
   const navigate = useNavigate()

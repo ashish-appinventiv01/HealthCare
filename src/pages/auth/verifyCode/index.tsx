@@ -1,57 +1,22 @@
 // @ts-nocheck
-import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import Button from '@components/common/common-button'
-import { sendResetCode, verifyCode } from '@utils/authApi'
-import ROUTES from '@routes/routes'
+import { useVerifyCode } from './verifyCode.helper'
 export default function VerifyCode() {
-  const { state } = useLocation()
-  const navigate = useNavigate()
-  const [code, setCode] = useState(Array(6).fill(''))
-  const inputsRef = useRef([])
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    inputsRef.current[0]?.focus()
-  }, [])
-
-  const handleChange = (idx, val) => {
-    if (!/^[0-9]?$/.test(val)) return
-    const next = [...code]
-    next[idx] = val
-    setCode(next)
-    if (val && idx < 5) inputsRef.current[idx + 1]?.focus()
-  }
-
-  const handleKeyDown = (idx, e) => {
-    if (e.key === 'Backspace' && !code[idx] && idx > 0) inputsRef.current[idx - 1]?.focus()
-  }
-
-  const confirm = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      await verifyCode({ code })
-      if (isFromRegister) {
-        localStorage.setItem('auth', 'true')
-        navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_1)
-      } else {
-        navigate(ROUTES.AUTH_ROUTES.RESET_PASSWORD)
-      }
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const resend = async () => {
-    await sendResetCode({ identifier: state?.identifier, method: state?.method || 'sms' })
-  }
-
-  const isFromRegister = state?.context === 'register'
+  const { 
+    state,
+    isFromRegister,
+    codeArray,
+    inputsRef,
+    error,
+    loading,
+    isCodeValid,
+    handleChange,
+    handleKeyDown,
+    confirm,
+    resend,
+  } = useVerifyCode()
 
   return (
     <AuthLayout>
@@ -65,7 +30,7 @@ export default function VerifyCode() {
         </p>
       </div>
       <div className="otp">
-        {code.map((c, i) => (
+        {codeArray.map((c, i) => (
           <input
             key={i}
             type="text"
@@ -82,7 +47,7 @@ export default function VerifyCode() {
       {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
       <Button
         onClick={confirm}
-        disabled={loading || code.some((d) => !d)}
+        disabled={loading || !isCodeValid}
         variant="primary"
         style={{ width: '391px', height: '48px', borderRadius: '1px', padding: 0 }}
       >

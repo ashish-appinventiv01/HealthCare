@@ -1,5 +1,5 @@
-import TrackingSection from '@components/trackingSection/TrackingSection'
-import AddMedicationModal from '@components/Modals/addMedicationModal'
+import TrackingSection from '@/components/trackingSection'
+import AddMedicationModal from '@/components/modals/addMedicationModal'
 import DateSelector from '@components/common/common-dateselected-strip'
 import useLogsHelper from './logs.helper'
 import { Chevron, InfoIcon, ListPrefix, EditSvg, DeleteSvg } from '@assets/index'

@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { useFormik, FormikProvider, Form } from 'formik'
-import { Link, useNavigate } from 'react-router-dom'
+import { FormikProvider, Form } from 'formik'
+import { Link } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import MUITextField from '@components/common/common-textfield'
 // import DatePicker from '@components/common/DatePicker'
@@ -9,90 +8,53 @@ import Button from '@components/common/common-button'
 import Modal from '@components/Modal'
 import EyeOpen from '@assets/icons/EyeOpen'
 import EyeOff from '@assets/icons/EyeOff'
-import { register } from '@utils/authApi'
-import checkCircle from '@assets/Images/check_circle.png'
-import uncheckedCircle from '@assets/Images/unchecked_circle.png'
-import ROUTES from '@routes/routes'
+import { passwordError } from '../../../constants/validation'
+import { useRegister } from './register.helper'
 export default function Register() {
-  const navigate = useNavigate()
-  const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [open, setOpen] = useState(false)
-  const [method, setMethod] = useState('sms')
-
-  const formik = useFormik({
-    initialValues: { identifier: '', password: '', dob: '' },
-    onSubmit: () => {
-      setError('')
-      setOpen(true)
-    },
-  })
-
-  // Live password validation rules
-  const passHasValidLength = formik.values.password.length >= 8 && formik.values.password.length <= 15
-  const passHasUppercase = /[A-Z]/.test(formik.values.password)
-  const passHasLowercase = /[a-z]/.test(formik.values.password)
-  const passHasNumber = /[0-9]/.test(formik.values.password)
-  const passHasSpecial = /[@$%&]/.test(formik.values.password)
-  const allPasswordRulesOk = passHasValidLength && passHasUppercase && passHasLowercase && passHasNumber && passHasSpecial
-
-  const handleRegister = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      await register({ identifier: formik.values.identifier, password: formik.values.password })
-      navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { context: 'register', identifier: formik.values.identifier, method } })
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-      setOpen(false)
-    }
-  }
+  const { 
+    open, setOpen, method, setMethod, loading, error,
+    showPassword, setShowPassword,
+    isIdFocused, setIsIdFocused,
+    isPwdFocused, setIsPwdFocused,
+    formik, isIdentifierValid, isPasswordValid, handleRegister,
+  } = useRegister()
 
   return (
     <AuthLayout title="Welcome to CWCFNP" subtitle="Let’s create your account">
       <FormikProvider value={formik}>
       <Form>
         <div style={{ marginBottom: 12 }}>
-          <MUITextField label="Email/Phone Number" type="text" value={formik.values.identifier} onChange={(v) => formik.setFieldValue('identifier', v)} placeholder="Enter email or phone number" />
+          <MUITextField 
+            label="Email/Phone Number" 
+            type="text" 
+            value={formik.values.identifier} 
+            onChange={(v) => formik.setFieldValue('identifier', String(v).trim())} 
+            onFocus={() => setIsIdFocused(true)}
+            onBlur={() => setIsIdFocused(false)}
+            placeholder="Enter email or phone number" 
+            helperText={!isIdFocused && Boolean(formik.values.identifier) ? (formik.errors.identifier as string) : ''} 
+            error={!isIdFocused && Boolean(formik.values.identifier) && Boolean(formik.errors.identifier)} 
+          />
         </div>
         <div style={{ marginBottom: 12 }}>
-          <MUITextField label="Password" type={showPassword ? 'text' : 'password'} value={formik.values.password} onChange={(v) => formik.setFieldValue('password', v)} placeholder="Enter password" InputProps={{ endAdornment: (
-            <IconButton onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff/> : <EyeOpen/>}</IconButton>
-          ) }} />
+          <MUITextField 
+            label="Password" 
+            type={showPassword ? 'text' : 'password'} 
+            value={formik.values.password} 
+            onChange={(v) => formik.setFieldValue('password', String(v))} 
+            onFocus={() => setIsPwdFocused(true)}
+            onBlur={() => setIsPwdFocused(false)}
+            placeholder="Enter password" 
+            helperText={!isPwdFocused && Boolean(formik.values.password) ? (formik.errors.password as string) : ''} 
+            error={!isPwdFocused && Boolean(formik.values.password) && Boolean(formik.errors.password)} 
+            InputProps={{ endAdornment: (
+              <IconButton onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff/> : <EyeOpen/>}</IconButton>
+            ) }} 
+          />
         </div>
-        {/* Password rules checklist - visible only after typing */}
-        {formik.values.password.length > 0 && (
-          <div style={{ marginTop: 8, marginBottom: 12 }}>
-            <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
-              {[{
-                ok: passHasValidLength,
-                text: '8 to 15 characters,'
-              }, {
-                ok: passHasUppercase,
-                text: '1 Uppercase(A-Z),'
-              }, {
-                ok: passHasLowercase,
-                text: '1 lower case(a-z),'
-              }, {
-                ok: passHasNumber,
-                text: '1 number (0-9) and'
-              }, {
-                ok: passHasSpecial,
-                text: '1 special character like @,$,%, and &.'
-              }].map((rule, idx) => (
-                <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: 8, color: rule.ok ? '#16a34a' : '#6b7280', fontSize: 14, lineHeight: '22px' }}>
-                  <img src={rule.ok ? checkCircle : uncheckedCircle} alt="rule status" style={{ width: 18, height: 18, objectFit: 'contain' }} />
-                  <span>{rule.text}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {/* Password rules checklist is removed in favor of centralized regex validation */}
         {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
-        <Button type="submit" disabled={loading || !formik.values.identifier || !allPasswordRulesOk} full style={{ marginTop: 61 }}>
+        <Button type="submit" disabled={loading || !isIdentifierValid || !isPasswordValid} full style={{ marginTop: 61 }}>
           {loading ? 'Registering...' : 'Register'}
         </Button>
         <div style={{ marginTop: 16, textAlign: 'center', color: '#6b7280' }}>

@@ -1,51 +1,41 @@
+import { FormikProvider, Form } from 'formik'
 import { useState } from 'react'
-import { useFormik, FormikProvider, Form } from 'formik'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import MUITextField from '@components/common/common-textfield'
 import Button from '@components/common/common-button'
 import Modal from '@components/Modal'
-import { sendResetCode } from '@utils/authApi'
-import ROUTES from '@routes/routes'
+import { useForgotPassword } from './forgotPassword.helper'
 
 export default function ForgotPassword() {
-  const [open, setOpen] = useState(false)
-  const [method, setMethod] = useState('sms')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
-
-  const formik = useFormik({
-    initialValues: { identifier: '' },
-    onSubmit: () => {
-      setError('')
-      setOpen(true)
-    },
-  })
-
-  const handleSend = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      await sendResetCode({ identifier: formik.values.identifier, method })
-      navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { identifier: formik.values.identifier, method } })
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-      setOpen(false)
-    }
-  }
+  const { open, setOpen, method, setMethod, loading, error, formik, isIdentifierValid, handleSend } = useForgotPassword()
+  const { values, setFieldValue, errors } = formik
+  const [isFocused, setIsFocused] = useState(false)
+  const showError = !isFocused && Boolean(values.identifier) && Boolean(errors.identifier)
 
   return (
     <AuthLayout title="Forgot Password" subtitle="We’ll send you a code to verify your account access.">
       <FormikProvider value={formik}>
       <Form>
         <div style={{ marginBottom: 12 }}>
-          <MUITextField label="Email/Phone Number" value={formik.values.identifier} onChange={(v) => formik.setFieldValue('identifier', v)} placeholder="Please enter your email or phone number" />
+          <MUITextField 
+           label="Email/Phone Number"
+           value={values.identifier}
+           onChange={(v) => setFieldValue('identifier', String(v).trim())}
+           onFocus={() => setIsFocused(true)}
+           onBlur={() => setIsFocused(false)}
+           placeholder="Please enter your email or phone number"
+           helperText={showError ? (errors.identifier as string) : ''}
+           error={showError} />
         </div>
         {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
-        <Button type="submit" disabled={loading || !formik.values.identifier} full style={{ marginTop: 61 }}>
+        <Button 
+          type="submit" 
+          disabled={loading || !isIdentifierValid} 
+          full 
+          style={{ marginTop: 61 }}
+          onClick={handleSend}
+        >
           {loading ? 'Sending...' : 'Send Code'}
         </Button>
       </Form>

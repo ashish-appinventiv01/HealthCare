@@ -1,6 +1,6 @@
 import useDashboardHelper from './dashboard.helper'
 
-import PhoneNumberModal from '@components/Modals/phoneNumberModal'
+import PhoneNumberModal from '@/components/modals/phoneNumberModal'
 import DatePicker from '@components/common/common-datepicker'
 import MUITextField from '@components/common/common-textfield'
 import { CameraIcon as CameraIconUrl, EditIcon as EditIconUrl, ProfileAvatar } from '@assets/index'
@@ -60,7 +60,7 @@ export default function Dashboard() {
                 onClick={handlePhoneClick}
                 InputProps={{
                   sx: { cursor: 'pointer' },
-                  endAdornment: <img src={EditIconUrl} width="18" height="18" alt="Edit" />
+                  endAdornment: <img src={EditIconUrl} alt="Edit" />
                 }}
               />
             </div>

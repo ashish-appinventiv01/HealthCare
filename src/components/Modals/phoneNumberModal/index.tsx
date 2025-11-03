@@ -92,7 +92,6 @@ export default function PhoneNumberModal({ open, onClose, onVerify, initialValue
         <div className="phone-modal-backdrop" onClick={handleClose}>
           <div className="phone-modal" onClick={(e) => e.stopPropagation()}>
             <div className="phone-modal-content">
-              <h3 className="phone-modal-title">Add Phone Number</h3>
 
               <div className="phone-input-container">
                 <label className="phone-input-label">Phone Number</label>
@@ -105,9 +104,12 @@ export default function PhoneNumberModal({ open, onClose, onVerify, initialValue
                       onChange={(v) => setPhoneNumber(String(v))}
                       placeholder="Enter Phone Number"
                       sx={{
-                        '& .MuiFilledInput-root': { overflow: 'visible' },
+                        '& .MuiFilledInput-root': { overflow: 'visible', background: "transparent !important", "&.Mui-Focus": { background: "transparent !important" } },
                         ".MuiInputAdornment-root": {
                           margin: "0 !important"
+                        },
+                        ".MuiFormLabel-root": {
+                          top: -7,
                         }
                       }}
                       InputProps={{

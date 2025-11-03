@@ -4,6 +4,7 @@ import { DatePicker as MUIDatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import type { ReactNode } from 'react'
 import type { TextFieldProps } from '@mui/material/TextField'
+import { COLORS } from '@/constants/ui-constant'
 
 interface DatePickerProps {
   label?: ReactNode
@@ -62,43 +63,43 @@ export default function DatePicker({
             sx: {
 
               ".MuiPickersInputBase-root": {
-                backgroundColor: '#FFFFFF !important',
+                backgroundColor: `${COLORS.white} !important`,
                 borderRadius: '8px',
-                border: '1px solid #BAC3C8',
+                border: `1px solid ${COLORS.borderDefault}`,
               },
               '& .MuiFilledInput-root': {
                 height: '55px',
                 borderRadius: '8px',
-                background: '#FFFFFF',
-                backgroundColor: '#FFFFFF !important',
-                border: '1px solid #BAC3C8',
+                background: COLORS.white,
+                backgroundColor: `${COLORS.white} !important`,
+                border: `1px solid ${COLORS.borderDefault}`,
                 overflow: 'hidden',
               },
               '& .MuiFilledInput-root:hover': {
-                backgroundColor: '#FFFFFF !important',
+                backgroundColor: `${COLORS.white} !important`,
               },
               '& .MuiFilledInput-root.Mui-focused': {
-                backgroundColor: '#FFFFFF !important',
-                borderColor: '#2483C5',
+                backgroundColor: `${COLORS.white} !important`,
+                borderColor: COLORS.focusPrimary,
               },
               '& .MuiFilledInput-root.Mui-disabled': {
-                backgroundColor: '#FFFFFF !important',
+                backgroundColor: `${COLORS.white} !important`,
               },
               '& .MuiFilledInput-root::before, & .MuiFilledInput-root::after': { display: 'none' },
               '& .MuiFilledInput-input': {
                 padding: '20px 16px 12px 11px',
-                color: '#1A1A1A',
+                color: COLORS.textPrimary,
                 fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
                 fontSize: '10px',
                 fontWeight: 500,
                 textAlign: 'left',
               },
               '& .MuiFilledInput-input:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0px 1000px #FFFFFF inset',
-                WebkitTextFillColor: '#1A1A1A',
+                WebkitBoxShadow: `0 0 0px 1000px ${COLORS.white} inset`,
+                WebkitTextFillColor: COLORS.textPrimary,
               },
               '& .MuiFilledInput-input::placeholder': {
-                color: 'rgba(26, 26, 26, 0.20)',
+                color: COLORS.placeholderMuted,
                 opacity: 1,
                 fontSize: '14px',
                 fontFamily: 'Poppins',
@@ -106,7 +107,7 @@ export default function DatePicker({
                 wordWrap: 'break-word',
               },
               '& .MuiInputLabel-root': {
-                color: 'rgba(75, 87, 90, 0.70)',
+                color: COLORS.labelMuted,
                 fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
                 fontSize: '10px',
                 fontWeight: 500,

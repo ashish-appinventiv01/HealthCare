@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { ReactElement } from 'react'
+import CommonTooltip from '../common/common-tooltip'
 
 type TrackingOption = {
   key: string
@@ -27,7 +28,7 @@ export default function TrackingSection({ title, options, type = 'circular', has
     }), {}
     )
   )
-  const [showTooltip, setShowTooltip] = useState<boolean>(false)
+  
 
   const handleOptionChange = (optionKey: string) => {
     if (optionKey === 'add') {
@@ -59,20 +60,7 @@ export default function TrackingSection({ title, options, type = 'circular', has
   }
 
   const InfoIcon = (): ReactElement => (
-    <div 
-      className="info-icon-container"
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-    >
-      <img src="/src/assets/icons/Icon.svg" alt="info" width="15" height="15" />
-      {showTooltip && (
-        <div className="tooltip">
-          <div className="tooltip-content">
-            {getTooltipContent()}
-          </div>
-        </div>
-      )}
-    </div>
+    <CommonTooltip content={getTooltipContent()} />
   )
 
   const CircularOption = ({ option }: { option: TrackingOption }): ReactElement => {

@@ -1,6 +1,7 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
 import type { ReactNode } from 'react'
+import { COLORS } from '@/constants/ui-constant'
 
 type SelectOption = string | { value: string | number; label: ReactNode }
 
@@ -75,21 +76,21 @@ export default function MUISelect({
         '& .MuiFilledInput-root': {
           height: '55px',
           borderRadius: '8px',
-          background: '#FBFBFB',
-          border: '1px solid #BAC3C8',
+          background: COLORS.surface,
+          border: `1px solid ${COLORS.borderDefault}`,
           overflow: 'hidden',
         },
         '& .MuiFilledInput-root::before, & .MuiFilledInput-root::after': { display: 'none' },
         '& .MuiFilledInput-input, & .MuiSelect-select': {
           padding: '20px 16px 1px 11px',
-          color: '#1A1A1A',
+          color: COLORS.textPrimary,
           fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
           fontSize: '12px',
           fontWeight: 500,
           textAlign: 'left',
         },
         '& .MuiInputLabel-root': {
-          color: 'rgba(75, 87, 90, 0.70)',
+          color: COLORS.labelMuted,
           fontFamily: 'Poppins, -apple-system, Roboto, Helvetica, sans-serif',
           fontSize: '10px',
           fontWeight: 500,
@@ -99,12 +100,12 @@ export default function MUISelect({
         '& .MuiInputLabel-shrink': {
           transform: 'translate(12px, 6px) scale(1)',
         },
-        '& .MuiFilledInput-root.Mui-focused': { borderColor: '#2483C5' },
+        '& .MuiFilledInput-root.Mui-focused': { borderColor: COLORS.focusPrimary },
         '& .MuiSelect-select.Mui-disabled': {
           WebkitTextFillColor: 'inherit',
         },
         '& .MuiSelect-select:has(+ input[hidden][value=""])': {
-          color: 'rgba(26, 26, 26, 0.20)',
+          color: COLORS.placeholderMuted,
         },
       }}
     >

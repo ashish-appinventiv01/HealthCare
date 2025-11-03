@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import ConfirmationModal from '@components/Modals/deleteAccountModal'
-import NotificationModal from '@components/Modals/notificationModal'
+import ConfirmationModal from '@/components/modals/deleteAccountModal'
+import NotificationModal from '@/components/modals/notificationModal'
 import logoutIcon from '@assets/icons/logout.svg'
 import ROUTES from '@routes/routes'
 import { ArrowRight as arrowRight, Chevron as chevron, Notification as notification } from '@assets/index'
