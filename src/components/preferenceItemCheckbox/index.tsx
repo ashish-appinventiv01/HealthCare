@@ -16,6 +16,7 @@ export default function PreferenceItem({ label, checked, onChange }: PreferenceI
       sx={{
         display: 'flex',
         alignItems: 'center',
+        height: '55px',
         justifyContent: 'space-between',
         padding: '14px 16px',
         border: '1px solid #e5e7eb',

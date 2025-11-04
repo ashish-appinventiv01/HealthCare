@@ -35,8 +35,8 @@ export function useLogin() {
       await login({ identifier: formik.values.identifier, password: formik.values.password })
       localStorage.setItem('auth', 'true')
       navigate(ROUTES.FEATURE_ROUTES.DASHBOARD)
-    } catch (err: any) {
-      setError(err?.message || 'Something went wrong')
+    } catch (err: unknown) {
+      setError((err as Error)?.message || 'Something went wrong')
     } finally {
       setLoading(false)
       setOpen(false)

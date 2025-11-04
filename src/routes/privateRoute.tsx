@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy, Suspense } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import ROUTES from './routes'
@@ -16,6 +17,7 @@ const withDashboard = (Component) => (
 const PersonalInfo = lazy(() => import('@pages/onboarding/PersonalInfo'))
 const CycleHealth = lazy(() => import('@pages/onboarding/CycleHealth'))
 const Preferences = lazy(() => import('@pages/onboarding/Preferences'))
+const Community = lazy(() => import('@pages/onboarding/Community'))
 
 const Dashboard = lazy(() => import('@pages/dashboard'))
 const Home = lazy(() => import('@pages/home'))
@@ -49,6 +51,7 @@ const privateRoute = {
     { path: ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_1, element: <PersonalInfo /> },
     { path: ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_2, element: <CycleHealth /> },
     { path: ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_3, element: <Preferences /> },
+    { path: ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_4, element: <Community /> },
 
     { path: ROUTES.FEATURE_ROUTES.HOME, element: withDashboard(Home) },
     { path: ROUTES.FEATURE_ROUTES.DASHBOARD, element: withDashboard(Dashboard) },

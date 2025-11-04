@@ -22,8 +22,8 @@ export function useResetPassword() {
       try {
         await resetPassword({ password: formik.values.password, confirm: formik.values.confirm })
         navigate(ROUTES.AUTH_ROUTES.LOGIN)
-      } catch (err: any) {
-        setError(err?.message || 'Something went wrong')
+      } catch (err: unknown) {
+        setError((err as Error)?.message || 'Something went wrong')
       } finally {
         setLoading(false)
       }

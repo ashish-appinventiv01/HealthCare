@@ -1,5 +1,4 @@
 
-import { Mask as mask, BlueBackground as blueBg} from '@assets/index'
 import { Outlet } from 'react-router-dom'
 
 import type { ReactNode } from 'react'
@@ -7,68 +6,19 @@ import type { ReactNode } from 'react'
 interface AuthLayoutProps {
   title?: ReactNode
   subtitle?: ReactNode
+  step?: ReactNode
   children?: ReactNode
-  contentClassName?: string
+
 }
 
-export default function AuthLayout({ title, subtitle, children, contentClassName }: AuthLayoutProps) {
+export default function AuthLayout({ title, subtitle, step, children }: AuthLayoutProps) {
   return (
-    <div className="auth-shell">
-      <div
-        className="auth-left"
-        style={{
-          position: 'relative',
-          backgroundImage: `url(${blueBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: '5vw',
-            left: 0,
-            width: '100%',
-            height: '50%', // top half
-          }}
-        >
-          <img
-      src={mask}
-      alt="mask"
-      style={{
-        width: '100%',
-        height: '100%',
-        // objectFit: 'contain', // image scales to fit inside child div
-        pointerEvents: 'none',
-      }}
-    />
-   <span
-    style={{
-      position: 'absolute',
-      bottom: '1.25vw',  // changed from 1.25rem to vw
-      right: '1.25vw',   // changed from 1.25rem to vw
-      fontFamily: 'Poppins',
-      fontWeight: 600,
-      fontStyle: 'normal',
-      fontSize: '2.5vw',
-      lineHeight: '125%',
-      letterSpacing: '0px',
-      textAlign: 'center',
-      color: '#fff',
-  }}
-  
-    >
-      Cwcnfp
-    </span>
-          {/* Content of top half div */}
-        </div>
-        
-        
-      </div>
-      <div className="auth-right">
-        <div className={`panel${contentClassName ? ' ' + contentClassName : ''}`}>
-          {title && <h1>{title}</h1>}
-          {subtitle && <p className="sub">{subtitle}</p>}
+    <div className="auth-layout">
+      <div className="auth-card">
+        {step && <div className="auth-step">{step}</div>}
+        <div className={`auth-content ${step ? 'auth-content-with-step' : ''}`}>
+          {title && <h1 className="auth-title">{title}</h1>}
+          {subtitle && <p className="auth-subtitle">{subtitle}</p>}
           {children || <Outlet />}
         </div>
       </div>

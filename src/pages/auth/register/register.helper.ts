@@ -34,8 +34,8 @@ export function useRegister() {
     try {
       await registerApi({ identifier: formik.values.identifier, password: formik.values.password })
       navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { context: 'register', identifier: formik.values.identifier, method } })
-    } catch (err: any) {
-      setError(err?.message || 'Something went wrong')
+    } catch (err: unknown) {
+      setError((err as Error)?.message || 'Something went wrong')
     } finally {
       setLoading(false)
       setOpen(false)

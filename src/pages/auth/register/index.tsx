@@ -8,8 +8,9 @@ import Button from '@components/common/common-button'
 import Modal from '@components/Modal'
 import EyeOpen from '@assets/icons/EyeOpen'
 import EyeOff from '@assets/icons/EyeOff'
-import { passwordError } from '../../../constants/validation'
 import { useRegister } from './register.helper'
+import checkCircle from '@assets/Images/check_circle.png'
+import uncheckedCircle from '@assets/Images/unchecked_circle.png'
 export default function Register() {
   const { 
     open, setOpen, method, setMethod, loading, error,
@@ -20,7 +21,7 @@ export default function Register() {
   } = useRegister()
 
   return (
-    <AuthLayout title="Welcome to CWCFNP" subtitle="Let’s create your account">
+    <AuthLayout title="Welcome to CWCNFP" subtitle="Let’s create your account">
       <FormikProvider value={formik}>
       <Form>
         <div style={{ marginBottom: 12 }}>
@@ -52,12 +53,44 @@ export default function Register() {
             ) }} 
           />
         </div>
-        {/* Password rules checklist is removed in favor of centralized regex validation */}
+        {/* Password rules checklist - visible only after typing */}
+        {Boolean(formik.values.password?.length) && (
+          <div style={{ marginTop: 8, marginBottom: 12 }}>
+            {(() => {
+              const pwd = String(formik.values.password || '')
+              const passHasValidLength = pwd.length >= 8 && pwd.length <= 15
+              const passHasUppercase = /[A-Z]/.test(pwd)
+              const passHasLowercase = /[a-z]/.test(pwd)
+              const passHasNumber = /[0-9]/.test(pwd)
+              const passHasSpecial = /[@$%&]/.test(pwd)
+              const rules = [
+                { ok: passHasValidLength, text: '8 to 15 characters,' },
+                { ok: passHasUppercase, text: '1 Uppercase(A-Z),' },
+                { ok: passHasLowercase, text: '1 lower case(a-z),' },
+                { ok: passHasNumber, text: '1 number (0-9) and' },
+                { ok: passHasSpecial, text: '1 special character like @,$,%, and &.' },
+              ]
+              return (
+                <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
+                  {rules.map((rule, idx) => (
+                    <li
+                      key={idx}
+                      style={{ display: 'flex', alignItems: 'center', gap: 8, color: rule.ok ? '#16a34a' : '#6b7280', fontSize: 14, lineHeight: '22px' }}
+                    >
+                      <img src={rule.ok ? checkCircle : uncheckedCircle} alt="rule status" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+                      <span>{rule.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              )
+            })()}
+          </div>
+        )}
         {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
         <Button type="submit" disabled={loading || !isIdentifierValid || !isPasswordValid} full style={{ marginTop: 61 }}>
           {loading ? 'Registering...' : 'Register'}
         </Button>
-        <div style={{ marginTop: 16, textAlign: 'center', color: '#6b7280' }}>
+        <div style={{ marginTop: 18, textAlign: 'center', color: '#6b7280' }}>
           Already have a account? <Link to="/login">Log in</Link>
         </div>
       </Form>

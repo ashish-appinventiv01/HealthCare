@@ -92,9 +92,10 @@ export default function PhoneNumberModal({ open, onClose, onVerify, initialValue
         <div className="phone-modal-backdrop" onClick={handleClose}>
           <div className="phone-modal" onClick={(e) => e.stopPropagation()}>
             <div className="phone-modal-content">
+              <h3 className="phone-modal-title">Add Phone Number</h3>
 
               <div className="phone-input-container">
-                <label className="phone-input-label">Phone Number</label>
+                {/* <label className="phone-input-label">Phone Number</label> */}
                 <div className="phone-input-wrapper">
                   <div style={{ flex: 1 }}>
                     <MUITextField

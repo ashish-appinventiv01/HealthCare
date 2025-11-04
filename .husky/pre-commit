@@ -1,0 +1,10 @@
+# Skip hooks in CI environment
+if [ -n "$CI" ]; then exit 0; fi
+
+# Run lint-staged and capture exit code
+echo "Running pre-commit hooks..."
+npx lint-staged
+exit_code=$?
+
+# Return the exit code
+exit $exit_code

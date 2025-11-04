@@ -7,9 +7,7 @@ import { Chevron, InfoIcon, ListPrefix, EditSvg, DeleteSvg } from '@assets/index
 export default function Logs() {
   const {
     selectedDate,
-    setSelectedDate,
     showMedicationModal,
-    setShowMedicationModal,
     trackingData,
     setTrackingData,
     handleTrackingChange,

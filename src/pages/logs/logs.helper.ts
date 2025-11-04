@@ -24,7 +24,7 @@ export default function useLogsHelper(): UseLogsHelperReturn {
     setTrackingData(prev => ({
       ...prev,
       [section]: {
-        ...(prev as any)[section],
+        ...(prev as unknown as Record<string, unknown>)[section] as Record<string, unknown>,
         [key]: value,
       },
     }))

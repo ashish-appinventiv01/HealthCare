@@ -11,7 +11,8 @@ const ROUTES = {
     ONBOARDING: {
       STEP_1: '/onboarding/step-1',
       STEP_2: '/onboarding/step-2',
-      STEP_3: '/onboarding/step-3'
+      STEP_3: '/onboarding/step-3',
+      STEP_4: '/onboarding/step-4'
     },
     HOME: '/home',
     DASHBOARD: '/dashboard',

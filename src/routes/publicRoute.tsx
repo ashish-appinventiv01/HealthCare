@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import ROUTES from './routes'

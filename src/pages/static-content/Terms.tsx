@@ -1,5 +1,6 @@
 import { createLegalPage } from './static-content.helper'
 
-export default createLegalPage('terms')
+const TermsPage = createLegalPage('terms')
+export default TermsPage
 
 

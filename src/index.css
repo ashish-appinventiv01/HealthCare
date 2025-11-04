@@ -181,9 +181,11 @@ a:hover {
 
 /* Auth header wrapper for back link, title, and subtitle */
 .auth-header {
-  width: 35rem;
+  max-width: 23.625rem;
+  width: 100%;
+  
   height: 10rem;
-  margin: 0 0 1rem 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -193,7 +195,8 @@ a:hover {
   display: inline-block;
   width: 9rem;
   height: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.875rem;
+  color: #6A747E;
 }
 
 .auth-header h1 {
@@ -209,13 +212,22 @@ a:hover {
 }
 
 .auth-header .sub {
-  width: 30.625rem;
+  width: 20.625rem;
   height: 1.25rem;
   margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Helvetica, Arial;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  leading-trim: none;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #6A747E;
 }
 
 /* Onboarding: Personal Info */
 .ob-parent {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -253,10 +265,16 @@ a:hover {
 }
 
 .ob-fields {
-  width: 25.6875rem;
-  height: 21.25rem;
+  width: 26.6875rem;
+
   display: grid;
-  gap: 0.75rem;
+  gap: 2rem;
+  margin-top: 0.75rem;
+}
+
+.ob-community-fields {
+  display: grid;
+  gap: 2rem;
   margin-top: 0.75rem;
 }
 
@@ -272,7 +290,8 @@ a:hover {
 .ob-actions {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 3rem;
+  align-self: center;
 }
 
 .field {
@@ -344,12 +363,12 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 24.4375rem;
+  width: 85%;
   height: 4.875rem;
   background: var(--brand);
   padding: 1rem;
   border-radius: 0.0625rem;
-  margin: 0.75rem 0 1rem;
+  margin: 0.75rem 0 3.25rem;
 }
 
 .otp input {
@@ -3695,4 +3714,69 @@ select:-webkit-autofill {
 }
 .css-1wnl1xe-MuiInputBase-root-MuiFilledInput-root:hover {
   background-color: #FBFBFB !important;
+}
+
+/* Auth Layout (moved from App.css) */
+.auth-layout {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #2483C5; /* TODO: map from COLORS.focusPrimary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background-color: #FFFFFF; /* COLORS.white */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 48px 101px 48px 101px;
+  min-width: 628px;
+}
+
+.auth-content {
+  padding-top: 50px;
+}
+
+.auth-content-with-step {
+  max-width: 38rem;
+  padding-top: 2.188rem;
+  text-align: center;
+  display: flex;
+  padding-inline: 3.938rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.auth-title {
+  margin: 0 0 12px 0;
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827; /* near COLORS.textPrimary */
+}
+
+.auth-content-with-step .auth-title {
+  text-align: left;
+  align-self: flex-start;
+}
+
+.auth-subtitle {
+  margin: 0 0 24px 0;
+  color: #6b7280;
+}
+
+.auth-content-with-step .auth-subtitle {
+  text-align: left;
+  align-self: flex-start;
+  width: 26.6875rem;
+}
+
+.auth-step {
+  text-align: center;
+  margin: 0 0 8px 0;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  color: #6b7280;
+  font-weight: 400;
 }

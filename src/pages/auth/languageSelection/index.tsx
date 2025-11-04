@@ -21,7 +21,7 @@ export default function LanguageSelect() {
     <AuthLayout
       title="Choose Your Language"
       subtitle="We've set your language to English. Do you want to continue or switch to Español?"
-      contentClassName="lang-panel"
+      // contentClassName="lang-panel"
     >
       <form onSubmit={handleContinue} className="lang-form">
         <div className="lang-options">

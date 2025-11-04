@@ -18,7 +18,6 @@ export default function ResetPassword() {
     isPwdFocused, setIsPwdFocused,
     isConfirmFocused, setIsConfirmFocused,
     formik,
-    isPasswordValid,
     isConfirmValid,
   } = useResetPassword()
 

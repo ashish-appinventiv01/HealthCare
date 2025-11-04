@@ -118,7 +118,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>
             {isSettingsOpen && (
               <div className="nav-submenu">
-                {settingsItems.map((s, i) => (
+                {settingsItems.map((s) => (
                   <button
                     key={s.label}
                     className={`submenu-item ${activeSubItem === s.label ? 'active' : ''}`}

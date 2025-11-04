@@ -6,7 +6,7 @@ import MUITextField from '@components/common/common-textfield'
 import { CameraIcon as CameraIconUrl, EditIcon as EditIconUrl, ProfileAvatar } from '@assets/index'
 
 export default function Dashboard() {
-  const { formData, setFormData, showPhoneModal, setShowPhoneModal, dobInputRef, handleInputChange, handlePhoneClick, handlePhoneVerify, openDobPicker } = useDashboardHelper()
+  const { formData, showPhoneModal, setShowPhoneModal, handleInputChange, handlePhoneClick, handlePhoneVerify } = useDashboardHelper()
 
   return (
     <div className="reminders-shell">

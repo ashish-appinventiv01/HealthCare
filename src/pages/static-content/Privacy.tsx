@@ -1,5 +1,6 @@
 import { createLegalPage } from './static-content.helper'
 
-export default createLegalPage('privacy')
+const PrivacyPage = createLegalPage('privacy')
+export default PrivacyPage
 
 

@@ -30,8 +30,8 @@ export function useForgotPassword() {
     try {
       await sendResetCode({ identifier: formik.values.identifier, method })
       navigate(ROUTES.AUTH_ROUTES.VERIFY_CODE, { state: { identifier: formik.values.identifier, method } })
-    } catch (err: any) {
-      setError(err?.message || 'Something went wrong')
+    } catch (err: unknown) {
+      setError((err as Error)?.message || 'Something went wrong')
     } finally {
       setLoading(false)
       setOpen(false)

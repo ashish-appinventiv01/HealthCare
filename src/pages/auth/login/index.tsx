@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { FormikProvider, Form } from 'formik'
 import { Link } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
@@ -52,12 +51,12 @@ export default function Login() {
             ) }} 
           />
         </div>
-        <div className="row" style={{ marginBottom: 8 }}>
+        <div className="row" >
           <span />
           <Link to="/forgot">Forgot Password?</Link>
         </div>
         {error && <div style={{ color: 'crimson', marginBottom: 12 }}>{error}</div>}
-        <Button type="submit" disabled={loading || !isIdentifierValid || !isPasswordValid} full style={{ marginTop: 61 }}>
+        <Button type="submit" disabled={loading || !isIdentifierValid || !isPasswordValid} full style={{ marginTop: 36 }}>
           {loading ? 'Logging In...' : 'Log In'}
         </Button>
         <div style={{ marginTop: 16, textAlign: 'center', color: '#6b7280' }}>

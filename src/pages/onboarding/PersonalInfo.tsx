@@ -18,17 +18,14 @@ export default function PersonalInfo() {
   const canNext = !!formik.values.name && !!formik.values.dob && !!formik.values.height && !!formik.values.weight
 
   return (
-    <AuthLayout>
+    <AuthLayout
+      step="Step 1 of 4"
+      title="Personal Information"
+      subtitle="Let's start by setting up your profile with a few basic details."
+    >
       <FormikProvider value={formik}>
         <Form>
           <div className="ob-parent">
-            {/* Header block */}
-            <div className="ob-header">
-              <div className="ob-step">Step 1 of 3</div>
-              <div className="ob-title">Personal Information</div>
-              <div className="ob-sub">Let’s start by setting up your profile with a few basic details.</div>
-            </div>
-
             {/* Fields block */}
             <div className="ob-fields">
               <MUITextField

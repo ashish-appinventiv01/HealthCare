@@ -24,21 +24,22 @@ export default function Button({ children, onClick, type = 'button', variant = '
 
   const baseSx: SxProps = {
     textTransform: 'none',
-    fontSize: SIZES.paragraphSize,
-    fontWeight: 500,
-    borderRadius: SIZES.borderRadiusSm,
+    fontSize: SIZES.buttonTextSize,
+    fontWeight: 400,
+    // borderRadius: SIZES.borderRadiusSm,
+    height: '48px',
     transition: 'all 0.2s ease',
     fontFamily: 'inherit',
-    ...(disabled
-      ? { backgroundColor: COLORS.disabledBackground, color: COLORS.disabledText }
-      : {
-          backgroundColor: background,
-          color: COLORS.onPrimaryText,
-          '&:hover': { backgroundColor: (style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')) ? background : COLORS.primaryHover },
-        }),
+    backgroundColor: disabled ? COLORS.disabledBackground : background,
+    color: disabled ? COLORS.white : COLORS.onPrimaryText,
+    '&.Mui-disabled': {
+      backgroundColor: COLORS.disabledBackground,
+      color: COLORS.white,
+    },
+    ...(!disabled && {
+      '&:hover': { backgroundColor: (style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')) ? background : COLORS.primaryHover },
+    }),
   }
-
-  const hasCustomBg = style && Object.prototype.hasOwnProperty.call(style, 'backgroundColor')
 
   return (
     <ButtonMUI

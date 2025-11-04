@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import type { AxiosError } from 'axios'
 import api from '@/apis/axios.instance'
 import { toastService } from '@components/common/common-toastmessage'
 import {
@@ -51,9 +52,9 @@ const INITIAL_STATE: AuthState = {
 export const login = createAsyncThunk('auth/login', async (payload: { identifier: string; password: string }, { rejectWithValue }) => {
   try {
     const res = await api.post<ApiResponse<{ token?: string }>>(LOGIN_POST, payload)
-    const token = (res.data as any)?.data?.token
+    const token = res.data?.data?.token
     if (token) localStorage.setItem('auth_token', token)
-    toastService.showToast((res.data as any)?.message || 'Logged in successfully', 'success')
+    toastService.showToast(res.data?.message || 'Logged in successfully', 'success')
     return res.data
   } catch (error) {
     return rejectWithValue(error)
@@ -64,7 +65,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValu
   try {
     const res = await api.post<ApiResponse<unknown>>(LOGOUT_DELETE, {})
     localStorage.removeItem('auth_token')
-    toastService.showToast((res.data as any)?.message || 'Logged out', 'success')
+    toastService.showToast(res.data?.message || 'Logged out', 'success')
     return res.data
   } catch (error) {
     return rejectWithValue(error)
@@ -92,7 +93,7 @@ export const forgotPassword = createAsyncThunk('auth/forgotPassword', async (pay
 export const resendEmail = createAsyncThunk('auth/resendEmail', async (payload: { identifier: string }, { rejectWithValue }) => {
   try {
     const res = await api.post<ApiResponse<unknown>>(RESEND_EMAIL_POST, payload)
-    toastService.showToast((res.data as any)?.message || 'Email sent', 'success')
+    toastService.showToast(res.data?.message || 'Email sent', 'success')
     return res.data
   } catch (error) {
     return rejectWithValue(error)
@@ -107,10 +108,11 @@ export const resetPassword = createAsyncThunk(
       const res = await api.post<ApiResponse<unknown>>(RESET_PASSWORD_POST, { password }, {
         headers: { authorization: `Bearer ${token}` },
       })
-      toastService.showToast((res.data as any)?.message || 'Password reset successfully', 'success')
+      toastService.showToast(res.data?.message || 'Password reset successfully', 'success')
       return res.data
-    } catch (error: any) {
-      const message = error?.response?.data?.message
+    } catch (error: unknown) {
+      const axiosErr = error as AxiosError<{ message?: string }>
+      const message = axiosErr?.response?.data?.message
       if (message) toastService.showToast(message, 'error')
       return rejectWithValue(error)
     }
@@ -130,7 +132,7 @@ export const changePassword = createAsyncThunk('auth/changePassword', async (pay
 export const updateProfile = createAsyncThunk('auth/updateProfile', async (payload: FormData, { dispatch, rejectWithValue }) => {
   try {
     const res = await api.put<ApiResponse<unknown>>(UPDATE_PROFILE, payload)
-    toastService.showToast((res.data as any)?.message || 'Profile updated', 'success')
+    toastService.showToast(res.data?.message || 'Profile updated', 'success')
     dispatch(getProfile())
     return res.data
   } catch (error) {
@@ -172,7 +174,8 @@ export const authSlice = createSlice({
 
 export const { setAdmin } = authSlice.actions
 
-export const selectAdmin = (state: any) => state.auth?.admin as Admin
+type RootStateLite = { auth?: { admin: Admin } }
+export const selectAdmin = (state: RootStateLite) => state.auth?.admin as Admin
 
 export default authSlice.reducer
 

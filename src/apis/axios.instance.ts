@@ -29,24 +29,22 @@ api.interceptors.request.use(async (config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError<any>) => {
-    const responseData: any = error.response?.data
+  (error: AxiosError<unknown>) => {
+    const responseData = error.response?.data as { statusCode?: number; message?: string } | undefined
     const statusCode: number | undefined = responseData?.statusCode
     const message: string = responseData?.message || error.message || 'Request failed'
 
     try {
       toastService.showToast(message, 'error', 'globalError')
-    } catch (_) {
+    } catch {
       // noop if toast not available
       console.error('[API Error]:', message)
     }
 
-    // Mirror reference behavior for unauthorized handling if status code present
     if (statusCode === 401) {
-      // Clear local token; place for logout dispatch if app store is available
       try {
         localStorage.removeItem('auth_token')
-      } catch (_) {}
+      } catch {}
     }
 
     return Promise.reject(error)
@@ -54,9 +52,9 @@ api.interceptors.response.use(
 )
 
 // Utils borrowed from reference: parse dates in params and clean empties
-const parseDateToTimeStamp = (obj: any) => {
-  const cloned: any = obj && typeof obj === 'object' ? { ...obj } : obj
-  ;(function transform(data: any): any {
+const parseDateToTimeStamp = (obj: unknown) => {
+  const cloned: unknown = obj && typeof obj === 'object' ? { ...(obj as Record<string, unknown>) } : obj
+  ;(function transform(data: unknown): unknown {
     if (typeof data === 'object' && data !== null) {
       if (Array.isArray(data)) {
         for (let i = data.length - 1; i >= 0; i -= 1) {
@@ -69,10 +67,10 @@ const parseDateToTimeStamp = (obj: any) => {
           }
         }
       } else {
-        Object.keys(data).forEach((key) => {
-          const value = data[key]
+        Object.keys(data as Record<string, unknown>).forEach((key) => {
+          const value = (data as Record<string, unknown>)[key]
           if (value instanceof Date) {
-            data[key] = new Date(value).toISOString()
+            ;(data as Record<string, unknown>)[key] = new Date(value).toISOString()
             return
           }
           if (dayjs.isDayjs(value)) {
@@ -81,7 +79,7 @@ const parseDateToTimeStamp = (obj: any) => {
               d.setDate(d.getDate() + 1)
               d.setUTCHours(0, 0, 0, 0)
               const dateTimeSplit = d.toISOString().split('T')
-              data[key] = dateTimeSplit[0]
+              ;(data as Record<string, unknown>)[key] = dateTimeSplit[0]
               return
             }
             if (key.toLowerCase() === 'to') {
@@ -89,14 +87,14 @@ const parseDateToTimeStamp = (obj: any) => {
               d.setDate(d.getDate() + 1)
               d.setUTCHours(23, 59, 59, 999)
               const dateTimeSplit = d.toISOString().split('T')
-              data[key] = dateTimeSplit[0]
+              ;(data as Record<string, unknown>)[key] = dateTimeSplit[0]
               return
             }
-            data[key] = value.toDate().toISOString()
+            ;(data as Record<string, unknown>)[key] = value.toDate().toISOString()
             return
           }
           if (typeof value === 'object' && value !== null) {
-            data[key] = transform(value)
+            ;(data as Record<string, unknown>)[key] = transform(value)
           }
         })
       }
@@ -106,9 +104,9 @@ const parseDateToTimeStamp = (obj: any) => {
   return cloned
 }
 
-const cleanParams = (params?: Record<string, any>) => {
+const cleanParams = (params?: Record<string, unknown>) => {
   if (!params || typeof params !== 'object') return params
-  const result: Record<string, any> = {}
+  const result: Record<string, unknown> = {}
   Object.keys(params).forEach((k) => {
     const v = params[k]
     if (v !== '' && v !== undefined && v !== null) {
@@ -119,21 +117,21 @@ const cleanParams = (params?: Record<string, any>) => {
 }
 
 export const http = {
-  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig<any>) {
+  post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig<unknown>) {
     return api.post<T>(url, data, config)
   },
-  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig<any>) {
+  put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig<unknown>) {
     return api.put<T>(url, data, config)
   },
-  patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig<any>) {
+  patch<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig<unknown>) {
     return api.patch<T>(url, data, config)
   },
-  delete<T = any>(url: string, config?: AxiosRequestConfig<any>) {
+  delete<T = unknown>(url: string, config?: AxiosRequestConfig<unknown>) {
     return api.delete<T>(url, config)
   },
-  get<T = any>(url: string, params?: any, config?: AxiosRequestConfig<any>) {
+  get<T = unknown>(url: string, params?: unknown, config?: AxiosRequestConfig<unknown>) {
     const parsed = parseDateToTimeStamp(params)
-    const cleaned = cleanParams(parsed)
+    const cleaned = cleanParams(parsed as Record<string, unknown>)
     return api.get<T>(url, { ...(config || {}), params: cleaned })
   },
 }

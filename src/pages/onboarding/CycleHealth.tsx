@@ -35,17 +35,15 @@ export default function CycleHealth() {
   )
 
   return (
-    <AuthLayout>
+    <AuthLayout
+      step="Step 2 of 4"
+      title="Your Cycle & Health Details"
+      subtitle="Help us personalize your experience by sharing a few details about your cycle and current status."
+    >
       <FormikProvider value={formik}>
         <Form>
           <div className="ob-parent">
-            <div className="ob-header">
-              <div className="ob-step">Step 2 of 3</div>
-              <div className="ob-title">Your Cycle & Health Details</div>
-              <div className="ob-sub">Help us personalize your experience by sharing a few details about your cycle and current status.</div>
-            </div>
-
-            <div style={{ width: '69%', marginTop: 24, display: 'grid', gap: 20 }}>
+            <div className="ob-fields">
               <MUISelect
                 label="Lactating Status"
                 value={formik.values.lactating}
@@ -80,7 +78,7 @@ export default function CycleHealth() {
               />
             </div>
 
-            <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>
+            <div className="ob-actions">
               <Button onClick={() => navigate(ROUTES.FEATURE_ROUTES.ONBOARDING.STEP_1)} style={{ width: 200 }}>Back</Button>
               <Button type="submit" disabled={!canNext} style={{ width: 200 }}>Next</Button>
             </div>
