@@ -6,8 +6,10 @@ import MUISelect from '@components/common/common-mui-select'
 import MUITextField from '@components/common/common-textfield'
 import ROUTES from '@routes/routes'
 import { RadioGroup, FormControlLabel, Radio } from '@mui/material'
-
+import { ArrowCircle } from '@/assets'
+import { ArrowCircle as ArrowCircleIcon } from '@assets/index'
 export default function Community() {
+  
   const navigate = useNavigate()
   const [belongsToCommunity, setBelongsToCommunity] = useState<'yes' | 'no'>('no')
   const [selectedState, setSelectedState] = useState<string | number>('')
@@ -56,6 +58,9 @@ export default function Community() {
       setCommunityName('')
     }
   }
+  const ArrowCircle = ({ className }) => (
+    <img aria-hidden className={className} src={ArrowCircleIcon} width="28" height="28" alt="open" style={{ top: '14px' }} />
+  )
 
   return (
     <AuthLayout
@@ -79,7 +84,7 @@ export default function Community() {
             </RadioGroup>
           </div>
 
-          <div style={{ width: 416, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ width: '95%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
             {belongsToCommunity === 'yes' && (
               <>
                 <MUISelect
@@ -96,6 +101,7 @@ export default function Community() {
                 options={stateOptions}
                 placeholder="Select"
                 disabled={belongsToCommunity !== 'yes'}
+                SelectProps={{ IconComponent: ArrowCircle }}
                 />
                 <MUISelect
                 label="City"
@@ -104,6 +110,7 @@ export default function Community() {
                 options={cityOptions}
                 placeholder="Select"
                 disabled={belongsToCommunity !== 'yes'}
+                SelectProps={{ IconComponent: ArrowCircle }}
                 />
                 {Boolean(selectedCity) && (
                   <>
@@ -114,6 +121,7 @@ export default function Community() {
                     options={parishOptions}
                     placeholder="Select"
                     disabled={belongsToCommunity !== 'yes'}
+                    SelectProps={{ IconComponent: ArrowCircle }}
                     />
                     <MUITextField
                     label="Pastor"
@@ -130,6 +138,7 @@ export default function Community() {
                     options={commitmentOptions}
                     placeholder="Select"
                     disabled={belongsToCommunity !== 'yes'}
+                    SelectProps={{ IconComponent: ArrowCircle }}
                     />
                   </>
                 )}

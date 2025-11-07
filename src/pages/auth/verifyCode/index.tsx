@@ -4,6 +4,7 @@ import Button from '@components/common/common-button'
 import ROUTES from '@routes/routes'
 import { useVerifyCode } from './verifyCode.helper'
 import { COLORS } from '@/constants/ui-constant'
+
 export default function VerifyCode() {
   const {
     isFromRegister,
@@ -19,35 +20,17 @@ export default function VerifyCode() {
   } = useVerifyCode()
 
   return (
-    <AuthLayout>
-      <div style={{
-        width: '100%',
-        maxWidth: '520px',
-        margin: '0px auto',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <div className="auth-header">
-          <Link
-            to={isFromRegister ? ROUTES.AUTH_ROUTES.REGISTER : ROUTES.AUTH_ROUTES.LOGIN}
-            className="back-link"
-            aria-label={isFromRegister ? 'Back to Register' : 'Back to Login'}
-          >
-            &lt; {isFromRegister ? 'Back to Register' : 'Back to Login'}
-          </Link>
-          <h1>{isFromRegister ? 'Verify Email' : 'Verify Account Access'}</h1>
-          <p className="sub">
-            {isFromRegister
-              ? 'Please enter the code sent to your email in order to continue with account creation'
-              : 'Please enter the code sent to your number in order to verify your account.'}
-          </p>
-        </div>
+    <AuthLayout 
+    title={isFromRegister ? 'Verify Email' : 'Forgot Password'} 
+    subtitle={isFromRegister ? 'Please enter the code sent to your email in order to continue with account creation' : 'Please enter the code sent to your number in order to verify your account.'} 
+    backLink={<Link to={ROUTES.AUTH_ROUTES.FORGOT_PASSWORD} className="back-link" aria-label="Back to Forgot Password">&lt; Back to Forgot Password</Link>}
+    >
+      <div className="auth-verify-container">
+        
         <div className="otp" role="group" aria-label="6-digit verification code inputs">
           {codeArray.map((c, i) => (
             <input
-              key={i}
+              key={i} 
               type="text"
               inputMode="numeric"
               maxLength={1}
@@ -61,7 +44,7 @@ export default function VerifyCode() {
           ))}
         </div>
         {error && (
-          <div style={{ color: 'crimson', marginBottom: 12 }} role="alert" aria-live="polite">
+          <div className="error-text" role="alert" aria-live="polite">
             {error}
           </div>
         )}
@@ -69,22 +52,20 @@ export default function VerifyCode() {
           onClick={confirm}
           disabled={loading || !isCodeValid}
           variant="contained"
-          style={{ width: '85%', height: '48px', borderRadius: '1px', padding: 0 }}
+          full
+          className="verify-button"
         >
           {loading ? 'Confirming...' : 'Confirm Code'}
         </Button>
-        <div style={{ marginTop: 28 , color: COLORS.resendCodeText}}>
-          Didn’t get a code?{' '}
-          <button
-            onClick={resend}
-            type="button"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: COLORS.focusPrimary, padding: 0 }}
-          >
+        <div className="resend-code-section">
+          <span className="resend-text">Didn’t get a code?</span>{' '}
+          <button onClick={resend} type="button" className="resend-link">
             Resend Code
           </button>
         </div>
       </div>
-    </AuthLayout>
+    </AuthLayout>  
+  
   )
 }
 

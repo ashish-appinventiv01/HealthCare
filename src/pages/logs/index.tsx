@@ -28,11 +28,11 @@ export default function Logs() {
 
 
   return (
-    <div className="reminders-shell">
-      <div className="logs-content">
+    <div className="home-container">
+      <div >
         {/* Header */}
-        <div className="logs-header">
-          <h1 className="logs-title">Logs</h1>
+        <div className="pages-header">
+          <h1 className="title-style">Logs</h1>
           <div className="logs-navigation">
          
           

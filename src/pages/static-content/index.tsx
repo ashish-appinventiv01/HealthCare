@@ -18,10 +18,12 @@ export default function StaticContent({ initialPage }: { initialPage?: string })
   }
 
   return (
-    <div className="reminders-shell">
-      <div className="settings-card" style={{ padding: 16 }}>
-        <h2 style={{ margin: '16px 0 8px 0', color: '#1a79bd' }}>Not Found</h2>
-        <p style={{ color: '#3b5162' }}>Requested content is not available.</p>
+    <div className="home-container">
+      <div className="static-content-section">
+        <h2 className="title-style">Not Found</h2>
+        <p className="static-content-body" style={{ maxHeight: 'unset', overflowY: 'visible', paddingRight: 0 }}>
+          Requested content is not available.
+        </p>
       </div>
     </div>
   )

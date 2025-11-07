@@ -6,10 +6,13 @@ const Index = () => {
   const { goals, toggle, items } = useManageGoalHelper();
 
   return (
-    <div className="reminders-shell">
+    <div className="home-container">
      
-      <Card className="settings-card" >
-      <h2 style={{ margin: '16px 0 24px 0', color: '#1a79bd' }}>Manage Goals</h2>
+      <Card >
+        <div className="pages-header">
+          <h2 className="title-style">Manage Goals</h2>
+        </div>
+        <div className="pages-list">
         <div style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: 16 }}>
        
           {items.map((item, idx) => (
@@ -22,7 +25,9 @@ const Index = () => {
             />
           ))}
         </div>
+        </div>
       </Card>
+      
     </div>
   );
 };

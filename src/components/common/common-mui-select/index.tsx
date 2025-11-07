@@ -96,6 +96,10 @@ export default function MUISelect({
           fontWeight: 500,
           transform: 'translate(12px, 12px) scale(1)',
           textAlign: 'left',
+          whiteSpace: 'normal', // ✅ Allow label to wrap
+          lineHeight: '1.2', // ✅ Optional: tighter vertical spacing
+          overflowWrap: 'break-word', // ✅ Prevent overflow for long words
+          maxWidth: '90%',
         },
         '& .MuiInputLabel-shrink': {
           transform: 'translate(12px, 6px) scale(1)',

@@ -1,24 +1,14 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import ROUTES from '@routes/routes'
+import LandingLayout from '@/layouts/landingLayout'
+import { useLanguageSelection } from './languageSelection.helper'
 
 export default function LanguageSelect() {
-  const navigate = useNavigate()
-  const [language, setLanguage] = useState('en')
-
-  function handleContinue(e) {
-    e.preventDefault()
-    // Persist selection if needed later
-    try {
-      localStorage.setItem('app_language', language)
-    } catch {}
-    navigate(ROUTES.AUTH_ROUTES.LOGIN)
-  }
+  const { language, setLanguage, handleContinue } = useLanguageSelection()
 
   return (
-    <AuthLayout
+    <LandingLayout
       title="Choose Your Language"
       subtitle="We've set your language to English. Do you want to continue or switch to Español?"
       // contentClassName="lang-panel"
@@ -75,7 +65,7 @@ export default function LanguageSelect() {
           </button>
         </div>
       </form>
-    </AuthLayout>
+    </LandingLayout>
   )
 }
 

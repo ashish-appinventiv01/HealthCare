@@ -5,6 +5,7 @@ import MUITextField from '@components/common/common-textfield'
 // import DatePicker from '@components/common/DatePicker'
 import IconButton from '@components/eyeIcon-button/IconButton'
 import Button from '@components/common/common-button'
+import CommonCheckbox from '@components/common/common-checkbox'
 import Modal from '@components/Modal'
 import EyeOpen from '@assets/icons/EyeOpen'
 import EyeOff from '@assets/icons/EyeOff'
@@ -53,6 +54,12 @@ export default function Register() {
             ) }} 
           />
         </div>
+        {/* <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, marginBottom: 12 }}>
+          <CommonCheckbox shape="square" checked={agreed} onChange={setAgreed} />
+          <div style={{ color: '#374151' }}>
+            I agree to <Link to="/privacy-consent">Privacy Consent</Link> and <Link to="/terms">Terms & Conditions</Link>
+          </div>
+        </div> */}
         {/* Password rules checklist - visible only after typing */}
         {Boolean(formik.values.password?.length) && (
           <div style={{ marginTop: 8, marginBottom: 12 }}>

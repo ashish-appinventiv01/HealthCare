@@ -24,6 +24,14 @@ export function useForgotPassword() {
 
   const isIdentifierValid = formik.isValid && Boolean(formik.values.identifier)
 
+  // Track input focus to control when to show validation errors
+  const [isFocused, setIsFocused] = useState(false)
+
+  const handleFocus = () => setIsFocused(true)
+  const handleBlur = () => setIsFocused(false)
+
+  const showError = !isFocused && Boolean(formik.values.identifier) && Boolean(formik.errors.identifier)
+
   const handleSend = async () => {
     setError('')
     setLoading(true)
@@ -38,7 +46,18 @@ export function useForgotPassword() {
     }
   }
 
-  return { open, setOpen, method, setMethod, loading, error, setError, formik, isIdentifierValid, handleSend }
+  return { 
+    open, setOpen, 
+    method, setMethod, 
+    loading, 
+    error, setError, 
+    formik, 
+    isIdentifierValid, 
+    isFocused, setIsFocused,
+    handleFocus, handleBlur,
+    showError,
+    handleSend 
+  }
 }
 
 

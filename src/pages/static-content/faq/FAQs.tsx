@@ -18,10 +18,11 @@ export default function FAQs() {
   ]
 
   return (
-    <div className="reminders-shell">
-      <Card className="settings-card">
-        <h2 style={{ margin: '16px 0 24px 0', color: '#1a79bd', paddingLeft: 16 }}>FAQs</h2>
-        <div style={{ padding: 16 }}>
+    <div className="home-container">
+      <Card >
+        <h2 className="title-style">FAQs</h2>
+        <div className="pages-list">
+        <div className="static-content-section" style={{ paddingLeft: 0 }}>
           <div className="faq-list">
             {faqs.map((item, index) => {
               const isOpen = openIndex === index
@@ -53,6 +54,7 @@ export default function FAQs() {
               )
             })}
           </div>
+        </div>
         </div>
       </Card>
     </div>

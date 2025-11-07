@@ -5,9 +5,11 @@ const ROUTES = {
     LOGIN: '/login',
     REGISTER: '/register',
     FORGOT_PASSWORD: '/forgot',
-    VERIFY_CODE: '/verify'
+    VERIFY_CODE: '/verify',
+    PRIVACY_CONSENT: '/privacy-consent'
   },
   FEATURE_ROUTES: {
+    SPLASH: '/splash',
     ONBOARDING: {
       STEP_1: '/onboarding/step-1',
       STEP_2: '/onboarding/step-2',
@@ -25,7 +27,8 @@ const ROUTES = {
       LANGUAGE: '/settings/language',
       TRACKING_PREFERENCE: '/settings/tracking-preference',
       MANAGE_CONSENT: '/settings/manage-consent',
-      MANAGE_GOAL: '/settings/manage-goal'
+      MANAGE_GOAL: '/settings/manage-goal',
+      MANAGE_DEVICE: '/settings/manage-device'
     },
     STATIC_CONTENT: {
       BASE_ROUTE: '/static-content',

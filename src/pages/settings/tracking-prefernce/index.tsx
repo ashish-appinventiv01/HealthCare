@@ -6,19 +6,23 @@ const TrackingPreference = () => {
   const { preferences, toggle, items } = useTrackingPreferenceHelper();
 
   return (
-    <div className="reminders-shell">
-      <Card className="settings-card">
-        <h2 style={{ margin: '16px 0 24px 0', color: '#1a79bd' }}>Tracking Preference</h2>
-        <div style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: 16 }}>
+    <div className="home-container">
+      <Card >
+        <div className="pages-header">
+          <h2 className="title-style">Tracking Preference</h2>
+        </div>
+        <div className="pages-list">
+        <div style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: 16}}>
           {items.map((item, idx) => (
             <GoalToggle
-              key={item.key}
+              key={item.key} 
               label={item.label}
               checked={preferences[item.key]}
               onChange={() => toggle(item.key)}
               isLast={idx === items.length - 1}
             />
           ))}
+        </div>
         </div>
       </Card>
     </div>

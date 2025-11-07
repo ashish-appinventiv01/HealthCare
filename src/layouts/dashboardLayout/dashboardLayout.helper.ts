@@ -42,7 +42,7 @@ export default function useDashboardLayoutHelper() {
     { label: 'Reminders', path: ROUTES.FEATURE_ROUTES.SETTINGS.REMINDERS },
     { label: 'Tracking Preference', path: ROUTES.FEATURE_ROUTES.SETTINGS.TRACKING_PREFERENCE },
     { label: 'Language Preference', path: ROUTES.FEATURE_ROUTES.SETTINGS.LANGUAGE },
-    { label: 'Manage Connected Device' },
+    { label: 'Manage Connected Device', path: ROUTES.FEATURE_ROUTES.SETTINGS.MANAGE_DEVICE },
     { label: 'Manage Your Consent', path: ROUTES.FEATURE_ROUTES.SETTINGS.MANAGE_CONSENT }
   ]
 

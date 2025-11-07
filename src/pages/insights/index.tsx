@@ -6,10 +6,10 @@ export default function Insights() {
   const { activeTab, setActiveTab, expandedCards, toggleCard, cycleData } = useInsightsHelper()
 
   return (
-    <div className="insights-container" style={{ border: '1px solid #E7E9EF', borderRadius: 8, padding: '2rem 1.375rem 2rem 1.375rem' }}>
+    <div className="home-container" >
       {/* Header */}
-      <div className="insights-header">
-        <h1 className="insights-title">Insights</h1>
+      <div className="pages-header">
+        <h1 className="title-style">Insights</h1>
         <div className="insights-actions">
           <Button 
             style={{ 

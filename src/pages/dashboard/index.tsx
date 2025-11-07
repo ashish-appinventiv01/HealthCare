@@ -9,7 +9,7 @@ export default function Dashboard() {
   const { formData, showPhoneModal, setShowPhoneModal, handleInputChange, handlePhoneClick, handlePhoneVerify } = useDashboardHelper()
 
   return (
-    <div className="reminders-shell">
+    <div className="home-container">
       <div className="profile-card">
         {/* Profile Header */}
         <div className="profile-header">

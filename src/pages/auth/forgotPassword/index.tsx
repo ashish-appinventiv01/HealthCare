@@ -1,20 +1,18 @@
 import { FormikProvider, Form } from 'formik'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import AuthLayout from '@layouts/authLayout'
 import MUITextField from '@components/common/common-textfield'
 import Button from '@components/common/common-button'
 import Modal from '@components/Modal'
 import { useForgotPassword } from './forgotPassword.helper'
+import ROUTES from '@/routes/routes'
 
 export default function ForgotPassword() {
-  const { open, setOpen, method, setMethod, loading, error, formik, isIdentifierValid, handleSend } = useForgotPassword()
+  const { open, setOpen, method, setMethod, loading, error, formik, isIdentifierValid, handleSend, showError, handleFocus, handleBlur } = useForgotPassword()
   const { values, setFieldValue, errors } = formik
-  const [isFocused, setIsFocused] = useState(false)
-  const showError = !isFocused && Boolean(values.identifier) && Boolean(errors.identifier)
 
   return (
-    <AuthLayout title="Forgot Password" subtitle="We’ll send you a code to verify your account access.">
+    <AuthLayout title="Forgot Password" subtitle="We’ll send you a code to verify your account access." backLink={<Link to={ROUTES.AUTH_ROUTES.LOGIN} className="back-link" aria-label="Back to Login">&lt; Back to Login</Link>}>
       <FormikProvider value={formik}>
       <Form>
         <div style={{ marginBottom: 12 }}>
@@ -22,8 +20,8 @@ export default function ForgotPassword() {
            label="Email/Phone Number"
            value={values.identifier}
            onChange={(v) => setFieldValue('identifier', String(v).trim())}
-           onFocus={() => setIsFocused(true)}
-           onBlur={() => setIsFocused(false)}
+           onFocus={handleFocus}
+           onBlur={handleBlur}
            placeholder="Please enter your email or phone number"
            helperText={showError ? (errors.identifier as string) : ''}
            error={showError} />

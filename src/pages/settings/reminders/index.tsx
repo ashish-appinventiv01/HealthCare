@@ -6,9 +6,9 @@ export default function Reminders() {
   const { reminders, setReminders, openModal, setOpenModal, toggleReminder, deleteReminder } = useRemindersHelper()
 
   return (
-    <div className="reminders-shell">
-      <div className="reminders-header">
-        <div className="reminders-title">Reminders</div>
+    <div className="home-container">
+      <div className="pages-header">
+        <div className="title-style">Reminders</div>
         <div className="reminders-actions">
           <button
             type="button"
@@ -20,7 +20,7 @@ export default function Reminders() {
         </div>
       </div>
 
-      <div className="reminders-list">
+      <div className="pages-list">
         {reminders.map((r) => (
           <div key={r.id} className="reminder-item">
             <div className="reminder-item-main">

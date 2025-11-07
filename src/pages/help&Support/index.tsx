@@ -5,9 +5,10 @@ export default function HelpSupport() {
   const { issueText, setIssueText, handleSendIssue, handleFAQsClick } = useHelpSupportHelper()
 
   return (
-    <div className="help-support-container">
-      <div className="help-support-content">
-        <h1 className="help-support-title">Contact Us</h1>
+    <div className="home-container">
+    
+        <h1 className="title-style">Contact Us</h1>
+       
         <p className="help-support-subtitle">How can we help you?</p>
         
         <p className="help-support-instruction">
@@ -54,6 +55,6 @@ export default function HelpSupport() {
           </button>
         </div>
       </div>
-    </div>
+ 
   )
 }

@@ -26,6 +26,7 @@ const TrackingPreference = lazy(() => import('@pages/settings/tracking-prefernce
 const ManageConsent = lazy(() => import('@pages/settings/manage-consent'))
 const Reminders = lazy(() => import('@pages/settings/reminders'))
 const ManageGoal = lazy(() => import('@pages/settings/manage-goal'))
+const ManageDevice = lazy(() => import('@pages/settings/manage-device'))
 const Logs = lazy(() => import('@pages/logs'))
 const Insights = lazy(() => import('@pages/insights'))
 const StaticContent = lazy(() => import('@pages/static-content'))
@@ -71,7 +72,8 @@ const privateRoute = {
         { path: ROUTES.FEATURE_ROUTES.SETTINGS.REMINDERS, element: <Reminders /> },
         { path: ROUTES.FEATURE_ROUTES.SETTINGS.LANGUAGE, element: <LanguagePreference /> },
         { path: ROUTES.FEATURE_ROUTES.SETTINGS.TRACKING_PREFERENCE, element: <TrackingPreference /> },
-        { path: ROUTES.FEATURE_ROUTES.SETTINGS.MANAGE_GOAL, element: <ManageGoal /> }
+        { path: ROUTES.FEATURE_ROUTES.SETTINGS.MANAGE_GOAL, element: <ManageGoal /> },
+        { path: ROUTES.FEATURE_ROUTES.SETTINGS.MANAGE_DEVICE, element: <ManageDevice /> }
       ]
     },
     {
